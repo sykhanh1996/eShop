@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using eShop.BackendServer.Data.Enums;
+﻿using eShop.BackendServer.Data.Enums;
 using eShop.BackendServer.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace eShop.BackendServer.Data.Entities
 {
@@ -21,8 +18,10 @@ namespace eShop.BackendServer.Data.Entities
 
         [MaxLength(100)]
         public string FullName { get; set; }
+
         [Required]
         public DateTime? Dob { get; set; }
+
         public string Avatar { get; set; }
         public int? NumberOfVotes { get; set; }
         public int? NumberOfReports { get; set; }

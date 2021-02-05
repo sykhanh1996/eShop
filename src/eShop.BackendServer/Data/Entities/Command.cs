@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace eShop.BackendServer.Data.Entities
 {
@@ -18,5 +15,7 @@ namespace eShop.BackendServer.Data.Entities
         [MaxLength(50)]
         [Required]
         public string Name { get; set; }
+        public ICollection<CommandInFunction> CommandInFunctions { get; set; }
+        public ICollection<Permission> Permission { get; set; }
     }
 }

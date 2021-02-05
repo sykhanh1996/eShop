@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace eShop.BackendServer.Data.Entities
 {
@@ -15,11 +12,11 @@ namespace eShop.BackendServer.Data.Entities
         [Column(TypeName = "varchar(50)")]
         public string Id { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(255)]
         [Required]
         public string Name { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(255)]
         [Required]
         public string Url { get; set; }
 
@@ -33,5 +30,8 @@ namespace eShop.BackendServer.Data.Entities
         [MaxLength(50)]
         [Column(TypeName = "varchar(50)")]
         public string Icon { get; set; }
+
+        public ICollection<CommandInFunction> CommandInFunctions { get; set; }
+        public ICollection<Permission> Permission { get; set; }
     }
 }
