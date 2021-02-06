@@ -18,6 +18,7 @@ namespace eShop.BackendServer.Data.Entities
 
         [ForeignKey("CommandId")]
         public virtual Command Command { set; get; }
+
         [ForeignKey("FunctionId")]
         public virtual Function Function { set; get; }
     }

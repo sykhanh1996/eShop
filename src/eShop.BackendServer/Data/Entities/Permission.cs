@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
 namespace eShop.BackendServer.Data.Entities
 {
@@ -18,11 +17,14 @@ namespace eShop.BackendServer.Data.Entities
         [MaxLength(50)]
         [Column(TypeName = "varchar(50)")]
         public string CommandId { get; set; }
+
         [ForeignKey("FunctionId")]
         public virtual Function Function { set; get; }
+
         [ForeignKey("CommandId")]
         public virtual Command Command { set; get; }
+
         [ForeignKey("RoleId")]
-        public virtual IdentityRole AppRole { set; get; }
+        public virtual UserRole UserRole { set; get; }
     }
 }

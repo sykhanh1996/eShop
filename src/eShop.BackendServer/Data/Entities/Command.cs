@@ -7,15 +7,17 @@ namespace eShop.BackendServer.Data.Entities
     [Table("Commands")]
     public class Command
     {
+     
         [MaxLength(50)]
         [Column(TypeName = "varchar(50)")]
         [Key]
         public string Id { get; set; }
 
-        [MaxLength(50)]
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
+
         public ICollection<CommandInFunction> CommandInFunctions { get; set; }
-        public ICollection<Permission> Permission { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
     }
 }
