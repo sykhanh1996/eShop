@@ -1,6 +1,7 @@
 ﻿using eShop.BackendServer.Data.Enums;
 using eShop.BackendServer.Data.Interfaces;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,8 +19,9 @@ namespace eShop.BackendServer.Data.Entities
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
-
+        [DefaultValue(false)]
         public bool IsDefault { get; set; }
+        [DefaultValue(0)]
         public int SortOrder { get; set; }
         public Status Status { get; set; }
 

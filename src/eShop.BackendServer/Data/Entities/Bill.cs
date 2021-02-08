@@ -2,6 +2,7 @@
 using eShop.BackendServer.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +18,7 @@ namespace eShop.BackendServer.Data.Entities
         [MaxLength(50)]
         public string UserId { get; set; }
         public int? ParentId { get; set; }
+        [DefaultValue(0)]
         public int SortOrder { get; set; }
         public Status Status { get; set; }
 

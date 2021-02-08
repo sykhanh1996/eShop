@@ -21,7 +21,6 @@ namespace eShop.BackendServer.Data.Entities
         [MaxLength(100)]
         public string FullName { get; set; }
 
-        [Required]
         public DateTime? Dob { get; set; }
 
         public string Avatar { get; set; }

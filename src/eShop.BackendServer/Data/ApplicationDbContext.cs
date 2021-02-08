@@ -47,6 +47,15 @@ namespace eShop.BackendServer.Data
             builder.Entity<UserRole>().Property(x => x.Id).HasMaxLength(50).IsUnicode(false);
             builder.Entity<User>().Property(x => x.Id).HasMaxLength(50).IsUnicode(false);
 
+
+            builder.Entity<Language>().Property(x => x.SortOrder).HasDefaultValue(0);
+            builder.Entity<Language>().Property(x => x.IsDefault).HasDefaultValue(false);
+            builder.Entity<AttributeOption>().Property(x => x.SortOrder).HasDefaultValue(0);
+            builder.Entity<Attributes>().Property(x => x.SortOrder).HasDefaultValue(0);
+            builder.Entity<Bill>().Property(x => x.SortOrder).HasDefaultValue(0);
+            builder.Entity<Category>().Property(x => x.SortOrder).HasDefaultValue(0);
+            builder.Entity<Language>().Property(x => x.SortOrder).HasDefaultValue(0);
+
             #endregion Identity Configuration
 
             builder.AddConfiguration(new BillDetailConfiguration());

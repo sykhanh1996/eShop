@@ -10,7 +10,7 @@ using eShop.BackendServer.Data;
 namespace eShop.BackendServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210206193014_Initiation")]
+    [Migration("20210208170408_Initiation")]
     partial class Initiation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -310,7 +310,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -520,7 +522,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -571,7 +575,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -634,7 +640,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -801,7 +809,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -809,7 +819,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -996,7 +1008,6 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<DateTime?>("Dob")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
