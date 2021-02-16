@@ -1,13 +1,20 @@
 using System;
+using System.Collections.Generic;
 using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
+using eShop.BackendServer.IdentityServer;
+using eShop.BackendServer.Services;
+using eShop.ViewModels.Systems;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace eShop.BackendServer
 {
@@ -31,6 +38,19 @@ namespace eShop.BackendServer
             services.AddIdentity<User, UserRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            var builder = services.AddIdentityServer(options =>
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
+                .AddInMemoryApiResources(Config.Apis)
+                .AddInMemoryClients(Config.Clients)
+                .AddInMemoryIdentityResources(Config.Ids)
+                .AddAspNetIdentity<User>()
+                .AddDeveloperSigningCredential();
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Lockout settings.
@@ -45,8 +65,64 @@ namespace eShop.BackendServer
                 options.Password.RequireUppercase = true;
                 options.User.RequireUniqueEmail = true;
             });
-            services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddControllersWithViews()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RoleCreateRequestValidator>()); ;
+            services.AddAuthentication()
+                .AddLocalApi("Bearer", option =>
+                {
+                    option.ExpectedScope = "api.eshop";
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Bearer", policy =>
+                {
+                    policy.AddAuthenticationSchemes("Bearer");
+                    policy.RequireAuthenticatedUser();
+                });
+            });
+
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Account/", model =>
+                {
+                    foreach (var selector in model.Selectors)
+                    {
+                        var attributeRouteModel = selector.AttributeRouteModel;
+                        attributeRouteModel.Order = -1;
+                        attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
+                    }
+                });
+            });
             services.AddTransient<eShopDBInitializer>();
+            services.AddTransient<IEmailSender,EmailSenderService>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "eShop API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Implicit = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri("https://localhost:5000/connect/authorize"),
+                            Scopes = new Dictionary<string, string> { { "api.eshop", "eShop API" } }
+                        },
+                    },
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new List<string>{ "api.eshop" }
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,16 +132,35 @@ namespace eShop.BackendServer
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
+         
+            app.UseIdentityServer();
+
+            app.UseAuthentication();
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.OAuthClientId("swagger");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "eShop API V1");
             });
         }
     }
