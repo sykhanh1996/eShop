@@ -27,7 +27,8 @@ namespace eShop.BackendServer.Data.Entities
         [MaxLength(50)]
         [Column(TypeName = "varchar(50)")]
         public string Icon { get; set; }
-
+        [MaxLength(255)]
+        public string NameTemp { get; set; }
         public ICollection<CommandInFunction> CommandInFunctions { get; set; }
         public ICollection<Permission> Permissions { get; set; }
         public ICollection<FunctionTranslation> FunctionTranslations { get; set; }

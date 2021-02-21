@@ -13,10 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eShop.BackendServer.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class RolesController : ControllerBase
+    public class RolesController : BaseController
     {
         private readonly RoleManager<UserRole> _roleManager;
         private readonly IMapper _mapper;
