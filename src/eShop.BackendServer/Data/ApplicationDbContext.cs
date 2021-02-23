@@ -65,6 +65,8 @@ namespace eShop.BackendServer.Data
             builder.AddConfiguration(new PermissionConfiguration());
             builder.AddConfiguration(new ProductInCategoryConfiguration());
             builder.AddConfiguration(new ProductTranslationConfiguration());
+
+            builder.HasSequence("ProductSequence");
         }
     }
 }

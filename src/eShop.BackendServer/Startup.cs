@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
+using eShop.BackendServer.Extensions;
 using eShop.BackendServer.IdentityServer;
 using eShop.BackendServer.Services;
 using eShop.ViewModels.Systems;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +51,7 @@ namespace eShop.BackendServer
                 .AddInMemoryClients(Config.Clients)
                 .AddInMemoryIdentityResources(Config.Ids)
                 .AddAspNetIdentity<User>()
+                .AddProfileService<IdentityProfileService>()
                 .AddDeveloperSigningCredential();
 
             services.Configure<IdentityOptions>(options =>
@@ -65,6 +68,11 @@ namespace eShop.BackendServer
                 options.Password.RequireUppercase = true;
                 options.User.RequireUniqueEmail = true;
             });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RoleCreateRequestValidator>()); ;
@@ -97,6 +105,7 @@ namespace eShop.BackendServer
             });
             services.AddTransient<eShopDBInitializer>();
             services.AddTransient<IEmailSender,EmailSenderService>();
+            services.AddTransient<ISequenceService,SequenceService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "eShop API", Version = "v1" });
@@ -137,7 +146,7 @@ namespace eShop.BackendServer
                 app.UseExceptionHandler("/Home/Error");
             }
 
-         
+            app.UseErrorWrapping();
             app.UseIdentityServer();
 
             app.UseAuthentication();
