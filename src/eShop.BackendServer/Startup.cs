@@ -1,21 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
 using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
 using eShop.BackendServer.Extensions;
 using eShop.BackendServer.IdentityServer;
 using eShop.BackendServer.Services;
+using eShop.BackendServer.Validation;
 using eShop.ViewModels.Systems;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization.Routing;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace eShop.BackendServer
@@ -68,14 +75,39 @@ namespace eShop.BackendServer
                 options.Password.RequireUppercase = true;
                 options.User.RequireUniqueEmail = true;
             });
-            services.Configure<ApiBehaviorOptions>(options =>
+            var supportedCultures = new[]
             {
-                options.SuppressModelStateInvalidFilter = true;
+                new CultureInfo("en"),
+                new CultureInfo("vi"),
+            };
+
+            var options = new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture(culture: "vi", uiCulture: "vi"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            };
+            options.RequestCultureProviders = new[]
+            {
+                new RouteDataRequestCultureProvider() { Options = options }
+            };
+            services.AddSingleton(options);
+            services.AddLocalization(otp => otp.ResourcesPath = "Resources");
+
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+
+
+            services.Configure<ApiBehaviorOptions>(otps =>
+            {
+                otps.SuppressModelStateInvalidFilter = true;
             });
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RoleCreateRequestValidator>()); ;
+                .AddFluentValidation(fv =>
+                    fv.RegisterValidatorsFromAssemblyContaining<UserCreateRequestValidatorTest>());
             services.AddAuthentication()
                 .AddLocalApi("Bearer", option =>
                 {
@@ -103,9 +135,10 @@ namespace eShop.BackendServer
                     }
                 });
             });
+
             services.AddTransient<eShopDBInitializer>();
-            services.AddTransient<IEmailSender,EmailSenderService>();
-            services.AddTransient<ISequenceService,SequenceService>();
+            services.AddTransient<IEmailSender, EmailSenderService>();
+            services.AddTransient<ISequenceService, SequenceService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "eShop API", Version = "v1" });
@@ -145,6 +178,8 @@ namespace eShop.BackendServer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+          
 
             app.UseErrorWrapping();
             app.UseIdentityServer();

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
+using eShop.BackendServer.Extensions;
+using eShop.BackendServer.Helpers;
+using eShop.BackendServer.Validation;
 using eShop.ViewModels;
 using eShop.ViewModels.Systems;
 using Microsoft.AspNetCore.Http;
@@ -23,8 +27,10 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostUser(UserCreateRequest request)
+        [ApiValidationFilter]
+        public async Task<IActionResult> PostUser(UserCreateRequestTest request)
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             var user = new User()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -122,6 +128,7 @@ namespace eShop.BackendServer.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(string id, [FromBody] UserCreateRequest request)
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 return NotFound();

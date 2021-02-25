@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using eShop.ViewModels.Systems;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
-namespace eShop.ViewModels.Systems
+namespace eShop.BackendServer.Validation
 {
-    public class UserCreateRequestValidator : AbstractValidator<UserCreateRequest>
+    public class UserCreateRequestValidatorTest : AbstractValidator<UserCreateRequestTest>
     {
-        public UserCreateRequestValidator(IStringLocalizer<UserCreateRequest> localizer)
+        public UserCreateRequestValidatorTest(IStringLocalizer<UserCreateRequestTest> localizer)
         {
             RuleFor(x => x.UserName).NotEmpty().WithMessage("User name is required");
 

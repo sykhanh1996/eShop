@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using AutoMapper;
 using eShop.BackendServer.Data.Entities;
@@ -7,19 +8,25 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using eShop.BackendServer.Data;
+using eShop.BackendServer.Extensions;
 using eShop.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace eShop.BackendServer.Controllers
 {
+ 
     public class RolesController : BaseController
     {
         private readonly RoleManager<UserRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
 
-        public RolesController(RoleManager<UserRole> roleManager, IMapper mapper, ApplicationDbContext context)
+
+        public RolesController(RoleManager<UserRole> roleManager,
+                               IMapper mapper,
+                               ApplicationDbContext context)
         {
             _roleManager = roleManager;
             _mapper = mapper;
@@ -30,7 +37,7 @@ namespace eShop.BackendServer.Controllers
         public async Task<IActionResult> PostRole(RoleCreateRequest request)
         {
             var role = _mapper.Map<UserRole>(request);
-     
+
             var result = await _roleManager.CreateAsync(role);
             if (result.Succeeded)
                 return CreatedAtAction(nameof(GetById), new { id = role.Id }, request);
@@ -89,6 +96,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpPut("{id}")]
+        [MiddlewareFilter(typeof(LocalizationPipeline))]
         public async Task<IActionResult> PutRole(string id, [FromBody] RoleCreateRequest roleVm)
         {
             if (id != roleVm.Id)
