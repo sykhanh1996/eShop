@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using eShop.BackendServer.Data.Entities;
-using eShop.ViewModels.Systems;
+using eShop.BackendServer.Models.ViewModels.Systems;
 
 namespace eShop.BackendServer.AutoMapper
 {
@@ -12,7 +12,9 @@ namespace eShop.BackendServer.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
-            CreateMap<RoleCreateRequest, UserRole>().ConstructUsing(c => new UserRole(c.Id,c.Name));
+            CreateMap<RoleCreateRequest, AppRole>().ConstructUsing(c => new AppRole(c.Id,c.Name));
+            CreateMap<UserCreateRequest, User>().ConstructUsing(u => new User(Guid.NewGuid().ToString(),
+                u.UserName, u.FirstName, u.LastName, u.Email, u.PhoneNumber, u.Dob));
         }
     }
 }

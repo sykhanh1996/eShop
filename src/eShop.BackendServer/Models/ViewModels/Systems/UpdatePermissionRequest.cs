@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace eShop.ViewModels.Systems
+namespace eShop.BackendServer.Models.ViewModels.Systems
 {
     public class UpdatePermissionRequest
     {

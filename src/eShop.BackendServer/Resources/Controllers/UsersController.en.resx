@@ -117,7 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PhoneNumber" xml:space="preserve">
-    <value>Phone Number required</value>
+  <data name="FindUserIdError" xml:space="preserve">
+    <value>Cannot found user with Id:</value>
+  </data>
+  <data name="RemoveLastAdminErr" xml:space="preserve">
+    <value>You cannot remove the last admin user remaining</value>
+  </data>
+  <data name="RemoveRoleErr" xml:space="preserve">
+    <value>Cannot remove {0} role</value>
+  </data>
+  <data name="RoleNameEmptyErr" xml:space="preserve">
+    <value>Role names cannot empty</value>
   </data>
 </root>

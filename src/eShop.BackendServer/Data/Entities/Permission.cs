@@ -31,6 +31,6 @@ namespace eShop.BackendServer.Data.Entities
         public virtual Command Command { set; get; }
 
         [ForeignKey("RoleId")]
-        public virtual UserRole UserRole { set; get; }
+        public virtual AppRole UserRole { set; get; }
     }
 }

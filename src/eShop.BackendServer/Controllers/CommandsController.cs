@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eShop.BackendServer.Data;
-using eShop.ViewModels.Systems;
+using eShop.BackendServer.Models.ViewModels.Systems;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

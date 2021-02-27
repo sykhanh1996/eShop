@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace eShop.ViewModels
+﻿namespace eShop.BackendServer.Models.ViewModels
 {
     public class Messages
     {

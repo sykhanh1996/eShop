@@ -117,7 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PhoneNumber" xml:space="preserve">
-    <value>So dien thoai la bat buoc</value>
+  <data name="FindUserIdError" xml:space="preserve">
+    <value>Không thể tìm thấy người dùng với Id: </value>
+  </data>
+  <data name="RemoveLastAdminErr" xml:space="preserve">
+    <value>Bạn không thể xóa User Admin cuối cùng được</value>
+  </data>
+  <data name="RemoveRoleErr" xml:space="preserve">
+    <value>Không thể xóa quyền {0} </value>
+  </data>
+  <data name="RoleNameEmptyErr" xml:space="preserve">
+    <value>Tên Quyền không thể để trống</value>
   </data>
 </root>

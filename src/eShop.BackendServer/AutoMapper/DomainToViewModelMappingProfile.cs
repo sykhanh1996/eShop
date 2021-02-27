@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using eShop.BackendServer.Data.Entities;
-using eShop.ViewModels.Systems;
+using eShop.BackendServer.Models.ViewModels.Systems;
 
 namespace eShop.BackendServer.AutoMapper
 {
@@ -12,7 +12,8 @@ namespace eShop.BackendServer.AutoMapper
     {
         public DomainToViewModelMappingProfile()
         {
-            CreateMap<UserRole, RoleVm>().MaxDepth(2);
+            CreateMap<AppRole, RoleVm>().MaxDepth(2);
+            CreateMap<User, UserVm>().MaxDepth(2);
         }
     }
 }

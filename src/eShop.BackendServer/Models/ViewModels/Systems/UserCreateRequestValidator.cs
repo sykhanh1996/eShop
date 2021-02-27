@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
 
-namespace eShop.ViewModels.Systems
+namespace eShop.BackendServer.Models.ViewModels.Systems
 {
     public class UserCreateRequestValidator : AbstractValidator<UserCreateRequest>
     {

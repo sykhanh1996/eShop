@@ -12,13 +12,13 @@ namespace eShop.BackendServer.Data
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<UserRole> _roleManager;
+        private readonly RoleManager<AppRole> _roleManager;
         private readonly string AdminRoleName = "Admin";
         private readonly string UserRoleName = "Member";
 
         public eShopDBInitializer(ApplicationDbContext context,
             UserManager<User> userManager,
-            RoleManager<UserRole> roleManager)
+            RoleManager<AppRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
@@ -31,13 +31,13 @@ namespace eShop.BackendServer.Data
 
             if (!_roleManager.Roles.Any())
             {
-                await _roleManager.CreateAsync(new UserRole
+                await _roleManager.CreateAsync(new AppRole
                 {
                     Id = AdminRoleName,
                     Name = AdminRoleName,
                     NormalizedName = AdminRoleName.ToUpper(),
                 });
-                await _roleManager.CreateAsync(new UserRole
+                await _roleManager.CreateAsync(new AppRole
                 {
                     Id = UserRoleName,
                     Name = UserRoleName,

@@ -3,13 +3,13 @@ using System.Globalization;
 using System.Linq;
 using AutoMapper;
 using eShop.BackendServer.Data.Entities;
-using eShop.ViewModels.Systems;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using eShop.BackendServer.Data;
 using eShop.BackendServer.Extensions;
-using eShop.ViewModels;
+using eShop.BackendServer.Models.ViewModels;
+using eShop.BackendServer.Models.ViewModels.Systems;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -19,12 +19,12 @@ namespace eShop.BackendServer.Controllers
  
     public class RolesController : BaseController
     {
-        private readonly RoleManager<UserRole> _roleManager;
+        private readonly RoleManager<AppRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
 
 
-        public RolesController(RoleManager<UserRole> roleManager,
+        public RolesController(RoleManager<AppRole> roleManager,
                                IMapper mapper,
                                ApplicationDbContext context)
         {
@@ -36,7 +36,7 @@ namespace eShop.BackendServer.Controllers
         [HttpPost]
         public async Task<IActionResult> PostRole(RoleCreateRequest request)
         {
-            var role = _mapper.Map<UserRole>(request);
+            var role = _mapper.Map<AppRole>(request);
 
             var result = await _roleManager.CreateAsync(role);
             if (result.Succeeded)

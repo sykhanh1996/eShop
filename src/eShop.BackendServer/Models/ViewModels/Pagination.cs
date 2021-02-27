@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace eShop.ViewModels
+namespace eShop.BackendServer.Models.ViewModels
 {
     public class Pagination<T> : PaginationBase where T : class
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace eShop.ViewModels.Systems
+namespace eShop.BackendServer.Models.ViewModels.Systems
 {
     public class FunctionCreateRequestValidator : AbstractValidator<FunctionCreateRequest>
     {

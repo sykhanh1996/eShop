@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace eShop.BackendServer.Data.Entities
 {
-    public class UserRole : IdentityRole
+    public class AppRole : IdentityRole
     {
-        public UserRole()
+        public AppRole()
         {
 
         }
-        public UserRole(string id, string name)
+        public AppRole(string id, string name)
         {
             Id = id;
             Name = name;

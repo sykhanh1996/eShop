@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Reflection;
 using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
 using eShop.BackendServer.Extensions;
 using eShop.BackendServer.IdentityServer;
 using eShop.BackendServer.Services;
-using eShop.BackendServer.Validation;
-using eShop.ViewModels.Systems;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,8 +16,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using eShop.BackendServer.Models.ViewModels.Systems;
 
 namespace eShop.BackendServer
 {
@@ -44,7 +41,7 @@ namespace eShop.BackendServer
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             //2. Setup idetntity
-            services.AddIdentity<User, UserRole>()
+            services.AddIdentity<User, AppRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             var builder = services.AddIdentityServer(options =>
@@ -98,7 +95,6 @@ namespace eShop.BackendServer
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
 
-
             services.Configure<ApiBehaviorOptions>(otps =>
             {
                 otps.SuppressModelStateInvalidFilter = true;
@@ -107,7 +103,7 @@ namespace eShop.BackendServer
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews()
                 .AddFluentValidation(fv =>
-                    fv.RegisterValidatorsFromAssemblyContaining<UserCreateRequestValidatorTest>());
+                    fv.RegisterValidatorsFromAssemblyContaining<UserCreateRequestValidator>());
             services.AddAuthentication()
                 .AddLocalApi("Bearer", option =>
                 {
@@ -178,8 +174,6 @@ namespace eShop.BackendServer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-          
 
             app.UseErrorWrapping();
             app.UseIdentityServer();

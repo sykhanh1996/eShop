@@ -20,12 +20,12 @@ namespace eShop.BackendServer.Services
         private readonly IUserClaimsPrincipalFactory<User> _claimsFactory;
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
-        private readonly RoleManager<UserRole> _roleManager;
+        private readonly RoleManager<AppRole> _roleManager;
 
         public IdentityProfileService(IUserClaimsPrincipalFactory<User> claimsFactory,
             UserManager<User> userManager,
             ApplicationDbContext context,
-           RoleManager<UserRole> roleManager)
+           RoleManager<AppRole> roleManager)
         {
             _claimsFactory = claimsFactory;
             _userManager = userManager;

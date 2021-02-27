@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace eShop.ViewModels.Systems
+namespace eShop.BackendServer.Models.ViewModels.Systems
 {
     public class UserCreateRequest
     {
@@ -18,6 +16,6 @@ namespace eShop.ViewModels.Systems
 
         public string LastName { get; set; }
 
-        public string Dob { get; set; }
+        public DateTime Dob { get; set; }
     }
 }
