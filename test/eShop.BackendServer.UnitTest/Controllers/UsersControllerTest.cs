@@ -84,188 +84,204 @@ namespace eShop.BackendServer.UnitTest.Controllers
         }
 
 
-        //[Fact]
-        //public async Task PostUser_ValidInput_Failed()
-        //{
-        //    _mockUserManager.Setup(x => x.CreateAsync(It.IsAny<AppUser>(), It.IsAny<string>()))
-        //        .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
+        [Fact]
+        public async Task PostUser_ValidInput_Failed()
+        {
+            _mockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Failed());
 
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.PostUser(new UserCreateRequest()
-        //    {
-        //        UserName = "test",
-        //        Dob = "12/12/2020"
-        //    });
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            var result = await usersController.PostUser(new UserCreateRequest()
+            {
+                UserName = "test"
+            });
 
-        //    Assert.NotNull(result);
-        //    Assert.IsType<BadRequestObjectResult>(result);
-        //}
+            Assert.NotNull(result);
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
 
-        //[Fact]
-        //public async Task GetUsers_HasData_ReturnSuccess()
-        //{
-        //    _mockUserManager.Setup(x => x.Users)
-        //        .Returns(_userSources.AsQueryable().BuildMock().Object);
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.GetUsers();
-        //    var okResult = result as OkObjectResult;
-        //    var UserVms = okResult.Value as IEnumerable<UserVm>;
-        //    Assert.True(UserVms.Count() > 0);
-        //}
+        [Fact]
+        public async Task GetUsers_HasData_ReturnSuccess()
+        {
+            _mockUserManager.Setup(x => x.Users)
+                .Returns(_userSources.AsQueryable().BuildMock().Object);
 
-        //[Fact]
-        //public async Task GetUsers_ThrowException_Failed()
-        //{
-        //    _mockUserManager.Setup(x => x.Users).Throws<Exception>();
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            
+            var result = await usersController.GetUsers();
+            var okResult = result as OkObjectResult;
+            var UserVms = okResult.Value as IEnumerable<UserVm>;
+            Assert.True((UserVms ?? Array.Empty<UserVm>()).Any());
+        }
 
-        //    var UsersController = new UsersController(_mockUserManager.Object);
+        [Fact]
+        public async Task GetUsers_ThrowException_Failed()
+        {
+            _mockUserManager.Setup(x => x.Users).Throws<Exception>();
 
-        //    await Assert.ThrowsAnyAsync<Exception>(async () => await UsersController.GetUsers());
-        //}
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
 
-        //[Fact]
-        //public async Task GetUsersPaging_NoFilter_ReturnSuccess()
-        //{
-        //    _mockUserManager.Setup(x => x.Users)
-        //        .Returns(_userSources.AsQueryable().BuildMock().Object);
+            await Assert.ThrowsAnyAsync<Exception>(async () => await usersController.GetUsers());
+        }
 
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.GetUsersPaging(null, 1, 2);
-        //    var okResult = result as OkObjectResult;
-        //    var UserVms = okResult.Value as Pagination<UserVm>;
-        //    Assert.Equal(4, UserVms.TotalRecords);
-        //    Assert.Equal(2, UserVms.Items.Count);
-        //}
+        [Fact]
+        public async Task GetUsersPaging_NoFilter_ReturnSuccess()
+        {
+            _mockUserManager.Setup(x => x.Users)
+                .Returns(_userSources.AsQueryable().BuildMock().Object);
 
-        //[Fact]
-        //public async Task GetUsersPaging_HasFilter_ReturnSuccess()
-        //{
-        //    _mockUserManager.Setup(x => x.Users)
-        //        .Returns(_userSources.AsQueryable().BuildMock().Object);
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            var result = await usersController.GetUsersPaging(null, 1, 2);
+            var okResult = result as OkObjectResult;
+            var UserVms = okResult.Value as Pagination<UserVm>;
+            Assert.Equal(4, UserVms.TotalRecords);
+            Assert.Equal(2, UserVms.Items.Count);
+        }
 
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.GetUsersPaging("test3", 1, 2);
-        //    var okResult = result as OkObjectResult;
-        //    var UserVms = okResult.Value as Pagination<UserVm>;
-        //    Assert.Equal(1, UserVms.TotalRecords);
-        //    Assert.Single(UserVms.Items);
-        //}
+        [Fact]
+        public async Task GetUsersPaging_HasFilter_ReturnSuccess()
+        {
+            _mockUserManager.Setup(x => x.Users)
+                .Returns(_userSources.AsQueryable().BuildMock().Object);
 
-        //[Fact]
-        //public async Task GetUsersPaging_ThrowException_Failed()
-        //{
-        //    _mockUserManager.Setup(x => x.Users).Throws<Exception>();
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            var result = await usersController.GetUsersPaging("test3", 1, 2);
+            var okResult = result as OkObjectResult;
+            var UserVms = okResult.Value as Pagination<UserVm>;
+            Assert.Equal(1, UserVms.TotalRecords);
+            Assert.Single(UserVms.Items);
+        }
 
-        //    var usersController = new UsersController(_mockUserManager.Object);
+        [Fact]
+        public async Task GetUsersPaging_ThrowException_Failed()
+        {
+            _mockUserManager.Setup(x => x.Users).Throws<Exception>();
 
-        //    await Assert.ThrowsAnyAsync<Exception>(async () => await usersController.GetUsersPaging(null, 1, 1));
-        //}
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
 
-        //[Fact]
-        //public async Task GetById_HasData_ReturnSuccess()
-        //{
-        //    _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-        //        .ReturnsAsync(new AppUser()
-        //        {
-        //            UserName = "test1"
-        //        });
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.GetById("test1");
-        //    var okResult = result as OkObjectResult;
-        //    Assert.NotNull(okResult);
+            await Assert.ThrowsAnyAsync<Exception>(async () => await usersController.GetUsersPaging(null, 1, 1));
+        }
 
-        //    var userVm = okResult.Value as UserVm;
+        [Fact]
+        public async Task GetById_HasData_ReturnSuccess()
+        {
+            _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(new User()
+                {
+                    UserName = "test1"
+                });
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            var result = await usersController.GetById("test1");
+            var okResult = result as OkObjectResult;
+            Assert.NotNull(okResult);
 
-        //    Assert.Equal("test1", userVm.UserName);
-        //}
+            var userVm = okResult.Value as UserVm;
 
-        //[Fact]
-        //public async Task GetById_ThrowException_Failed()
-        //{
-        //    _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>())).Throws<Exception>();
+            Assert.Equal("test1", userVm.UserName);
+        }
 
-        //    var usersController = new UsersController(_mockUserManager.Object);
+        [Fact]
+        public async Task GetById_ThrowException_Failed()
+        {
+            _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>())).Throws<Exception>();
 
-        //    await Assert.ThrowsAnyAsync<Exception>(async () => await usersController.GetById("test1"));
-        //}
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
 
-        //[Fact]
-        //public async Task PutUser_ValidInput_Success()
-        //{
-        //    _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-        //       .ReturnsAsync(new AppUser()
-        //       {
-        //           UserName = "test1"
-        //       });
+            await Assert.ThrowsAnyAsync<Exception>(async () => await usersController.GetById("test1"));
+        }
 
-        //    _mockUserManager.Setup(x => x.UpdateAsync(It.IsAny<AppUser>()))
-        //        .ReturnsAsync(IdentityResult.Success);
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.PutUser("test", new UserCreateRequest()
-        //    {
-        //        FirstName = "test2",
-        //        Dob = "12/12/2020"
-        //    });
+        [Fact]
+        public async Task PutUser_ValidInput_Success()
+        {
+            _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
+               .ReturnsAsync(new User()
+               {
+                   UserName = "test1"
+               });
 
-        //    Assert.NotNull(result);
-        //    Assert.IsType<NoContentResult>(result);
-        //}
+            _mockUserManager.Setup(x => x.UpdateAsync(It.IsAny<User>()))
+                .ReturnsAsync(IdentityResult.Success);
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
 
-        //[Fact]
-        //public async Task PutUser_ValidInput_Failed()
-        //{
-        //    _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-        //     .ReturnsAsync(new AppUser()
-        //     {
-        //         UserName = "test1"
-        //     });
+            var result = await usersController.PutUser("test", new UserCreateRequest()
+            {
+                FirstName = "test2",
+                Dob = DateTime.Now
+            });
 
-        //    _mockUserManager.Setup(x => x.UpdateAsync(It.IsAny<AppUser>()))
-        //        .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
+            Assert.NotNull(result);
+            Assert.IsType<NoContentResult>(result);
+        }
 
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.PutUser("test", new UserCreateRequest()
-        //    {
-        //        UserName = "test1",
-        //        Dob = "12/12/2020"
-        //    });
+        [Fact]
+        public async Task PutUser_ValidInput_Failed()
+        {
+            _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
+             .ReturnsAsync(new User()
+             {
+                 UserName = "test1"
+             });
 
-        //    Assert.NotNull(result);
-        //    Assert.IsType<BadRequestObjectResult>(result);
-        //}
+            _mockUserManager.Setup(x => x.UpdateAsync(It.IsAny<User>()))
+                .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
 
-        //[Fact]
-        //public async Task DeleteUser_ValidInput_Success()
-        //{
-        //    _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-        //       .ReturnsAsync(new AppUser()
-        //       {
-        //           UserName = "test1"
-        //       });
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            var result = await usersController.PutUser("test", new UserCreateRequest()
+            {
+                UserName = "test1",
+                Dob = DateTime.Now
+            });
 
-        //    _mockUserManager.Setup(x => x.DeleteAsync(It.IsAny<AppUser>()))
-        //        .ReturnsAsync(IdentityResult.Success);
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.DeleteUser("test");
-        //    Assert.IsType<OkObjectResult>(result);
-        //}
+            Assert.NotNull(result);
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
 
-        //[Fact]
-        //public async Task DeleteUser_ValidInput_Failed()
-        //{
-        //    _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-        //     .ReturnsAsync(new AppUser()
-        //     {
-        //         UserName = "test1"
-        //     });
+        [Fact]
+        public async Task DeleteUser_ValidInput_Success()
+        {
+            _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
+               .ReturnsAsync(new User()
+               {
+                   UserName = "test1"
+               });
 
-        //    _mockUserManager.Setup(x => x.DeleteAsync(It.IsAny<AppUser>()))
-        //        .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
+            _mockUserManager.Setup(x => x.GetUsersInRoleAsync(It.IsAny<string>()))
+                .ReturnsAsync(new List<User>(){
+                    new User()
+                    {
+                        UserName = "test1"
+                    }});
 
-        //    var usersController = new UsersController(_mockUserManager.Object);
-        //    var result = await usersController.DeleteUser("test");
-        //    Assert.IsType<BadRequestObjectResult>(result);
-        //}
+            _mockUserManager.Setup(x => x.DeleteAsync(It.IsAny<User>()))
+                .ReturnsAsync(IdentityResult.Success);
+
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            var result = await usersController.DeleteUser("1");
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task DeleteUser_ValidInput_Failed()
+        {
+            _mockUserManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
+             .ReturnsAsync(new User()
+             {
+                 UserName = "test1"
+             });
+
+            _mockUserManager.Setup(x => x.GetUsersInRoleAsync(It.IsAny<string>()))
+                .ReturnsAsync(new List<User>(){
+                    new User()
+                    {
+                        UserName = "test1"
+                    }});
+
+            _mockUserManager.Setup(x => x.DeleteAsync(It.IsAny<User>()))
+                .ReturnsAsync(IdentityResult.Failed());
+
+            var usersController = new UsersController(_mockUserManager.Object, _localizer, _roleManager, _context, _mapper);
+            var result = await usersController.DeleteUser("1");
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
     }
-
 }

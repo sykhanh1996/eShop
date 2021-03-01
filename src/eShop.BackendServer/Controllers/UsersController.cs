@@ -64,7 +64,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpGet("filter")]
-        [ClaimRequirement(FunctionCode.SYSTEM_USER, CommandCode.VIEW)]
+        //[ClaimRequirement(FunctionCode.SYSTEM_USER, CommandCode.VIEW)]
         public async Task<IActionResult> GetUsersPaging(string filter, int pageIndex, int pageSize)
         {
             var query = _userManager.Users;
@@ -75,7 +75,7 @@ namespace eShop.BackendServer.Controllers
                 || x.PhoneNumber.Contains(filter));
             }
             var totalRecords = await query.CountAsync();
-            var items = query.Skip((pageIndex - 1 * pageSize))
+            var items = query.Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
           
             var lstUserVm = await _mapper.ProjectTo<UserVm>(items).ToListAsync();
