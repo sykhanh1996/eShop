@@ -12,6 +12,7 @@ using eShop.BackendServer.Models.ViewModels;
 using eShop.BackendServer.Models.ViewModels.Systems;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using MockQueryable.Moq;
 using Moq;
 using Xunit;
@@ -23,6 +24,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         private readonly Mock<RoleManager<AppRole>> _mockRoleManager;
         private readonly IMapper _mapper;
         private ApplicationDbContext _context;
+        private readonly IStringLocalizer<UsersController> _localizer;
         private List<AppRole> _roleSources = new List<AppRole>(){
             new AppRole("test1","test1"),
             new AppRole("test2","test2"),
@@ -34,6 +36,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
             var roleStore = new Mock<IRoleStore<AppRole>>();
             _mockRoleManager = new Mock<RoleManager<AppRole>>(roleStore.Object, null, null, null, null);
 
+            _context = new InMemoryDbContextFactory().GetApplicationDbContext();
             if (_mapper == null)
             {
                 var mappingConfig = new MapperConfiguration(mc =>
@@ -48,7 +51,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public void ShouldCreateInstance_NotNull_Success()
         {
-            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             Assert.NotNull(rolesController);
         }
 
@@ -57,13 +60,13 @@ namespace eShop.BackendServer.UnitTest.Controllers
         {
             _mockRoleManager.Setup(x => x.CreateAsync(It.IsAny<AppRole>()))
                 .ReturnsAsync(IdentityResult.Success);
-            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.PostRole(new RoleCreateRequest()
             {
                 Id = "test",
                 Name = "test"
             });
-          
+
             Assert.NotNull(result);
             Assert.IsType<CreatedAtActionResult>(result);
         }
@@ -71,22 +74,23 @@ namespace eShop.BackendServer.UnitTest.Controllers
         public async Task PostRole_ValidInput_Failed()
         {
             _mockRoleManager.Setup(x => x.CreateAsync(It.IsAny<AppRole>()))
-                .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper, _context);
+                .ReturnsAsync(IdentityResult.Failed());
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.PostRole(new RoleCreateRequest()
             {
                 Id = "test",
                 Name = "test"
             });
+
             Assert.NotNull(result);
-            Assert.IsType<BadRequestResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
         [Fact]
         public async Task GetRoles_HasData_ReturnSuccess()
         {
             _mockRoleManager.Setup(x => x.Roles)
                 .Returns(_roleSources.AsQueryable().BuildMock().Object);
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper, _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.GetRoles();
             var okResult = result as OkObjectResult;
             var roleVms = okResult.Value as IEnumerable<RoleVm>;
@@ -97,10 +101,11 @@ namespace eShop.BackendServer.UnitTest.Controllers
         {
             _mockRoleManager.Setup(x => x.Roles).Throws<Exception>();
 
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
 
             await Assert.ThrowsAnyAsync<Exception>(async () => await rolesController.GetRoles());
         }
+
 
         [Fact]
         public async Task GetRolesPaging_NoFilter_ReturnSuccess()
@@ -108,7 +113,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
             _mockRoleManager.Setup(x => x.Roles)
                 .Returns(_roleSources.AsQueryable().BuildMock().Object);
 
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.GetRolesPaging(null, 1, 2);
             var okResult = result as OkObjectResult;
             var roleVms = okResult.Value as Pagination<RoleVm>;
@@ -122,7 +127,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
             _mockRoleManager.Setup(x => x.Roles)
                 .Returns(_roleSources.AsQueryable().BuildMock().Object);
 
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.GetRolesPaging("test3", 1, 2);
             var okResult = result as OkObjectResult;
             var roleVms = okResult.Value as Pagination<RoleVm>;
@@ -135,7 +140,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         {
             _mockRoleManager.Setup(x => x.Roles).Throws<Exception>();
 
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
 
             await Assert.ThrowsAnyAsync<Exception>(async () => await rolesController.GetRolesPaging(null, 1, 1));
         }
@@ -149,7 +154,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
                     Id = "test1",
                     Name = "test1"
                 });
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.GetById("test1");
             var okResult = result as OkObjectResult;
             Assert.NotNull(okResult);
@@ -164,7 +169,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         {
             _mockRoleManager.Setup(x => x.FindByIdAsync(It.IsAny<string>())).Throws<Exception>();
 
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
 
             await Assert.ThrowsAnyAsync<Exception>(async () => await rolesController.GetById("test1"));
         }
@@ -173,15 +178,15 @@ namespace eShop.BackendServer.UnitTest.Controllers
         public async Task PutRole_ValidInput_Success()
         {
             _mockRoleManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-               .ReturnsAsync(new AppRole()
-               {
-                   Id = "test",
-                   Name = "test"
-               });
+                .ReturnsAsync(new AppRole()
+                {
+                    Id = "test",
+                    Name = "test"
+                });
 
             _mockRoleManager.Setup(x => x.UpdateAsync(It.IsAny<AppRole>()))
                 .ReturnsAsync(IdentityResult.Success);
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.PutRole("test", new RoleCreateRequest()
             {
                 Id = "test",
@@ -196,16 +201,16 @@ namespace eShop.BackendServer.UnitTest.Controllers
         public async Task PutRole_ValidInput_Failed()
         {
             _mockRoleManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-             .ReturnsAsync(new AppRole()
-             {
-                 Id = "test",
-                 Name = "test"
-             });
+                .ReturnsAsync(new AppRole()
+                {
+                    Id = "test",
+                    Name = "test"
+                });
 
             _mockRoleManager.Setup(x => x.UpdateAsync(It.IsAny<AppRole>()))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
 
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.PutRole("test", new RoleCreateRequest()
             {
                 Id = "test",
@@ -213,22 +218,22 @@ namespace eShop.BackendServer.UnitTest.Controllers
             });
 
             Assert.NotNull(result);
-            Assert.IsType<BadRequestResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
 
         [Fact]
         public async Task DeleteRole_ValidInput_Success()
         {
             _mockRoleManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-               .ReturnsAsync(new AppRole()
-               {
-                   Id = "test",
-                   Name = "test"
-               });
+                .ReturnsAsync(new AppRole()
+                {
+                    Id = "test",
+                    Name = "test"
+                });
 
             _mockRoleManager.Setup(x => x.DeleteAsync(It.IsAny<AppRole>()))
                 .ReturnsAsync(IdentityResult.Success);
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.DeleteRole("test");
             Assert.IsType<OkObjectResult>(result);
         }
@@ -237,18 +242,18 @@ namespace eShop.BackendServer.UnitTest.Controllers
         public async Task DeleteRole_ValidInput_Failed()
         {
             _mockRoleManager.Setup(x => x.FindByIdAsync(It.IsAny<string>()))
-             .ReturnsAsync(new AppRole()
-             {
-                 Id = "test",
-                 Name = "test"
-             });
+                .ReturnsAsync(new AppRole
+                {
+                    Id = "test",
+                    Name = "test"
+                });
 
             _mockRoleManager.Setup(x => x.DeleteAsync(It.IsAny<AppRole>()))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
 
-            var rolesController = new RolesController(_mockRoleManager.Object,_mapper,  _context);
+            var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.DeleteRole("test");
-            Assert.IsType<BadRequestResult>(result);
+            Assert.IsType<BadRequestObjectResult>(result);
         }
     }
 }
