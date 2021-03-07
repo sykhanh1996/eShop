@@ -7,7 +7,19 @@ namespace eShop.BackendServer.Data.Entities
     [Table("Functions")]
     public class Function
     {
+        public Function()
+        {
 
+        }
+        public Function(string id, string url, int sortOrder, string parentId, string icon, string nameTemp)
+        {
+            Id = id;
+            Url = url;
+            SortOrder = sortOrder;
+            ParentId = parentId;
+            Icon = icon;
+            NameTemp = nameTemp;
+        }
         [MaxLength(50)]
         [Column(TypeName = "varchar(50)")]
         [Key]

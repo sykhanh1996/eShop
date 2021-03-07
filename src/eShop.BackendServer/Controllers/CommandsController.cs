@@ -20,8 +20,9 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCommants()
+        public async Task<IActionResult> GetCommands()
         {
+            var user = User.Identity.Name;
             var commands = _context.Commands;
 
             var commandVms = await commands.Select(u => new CommandVm()

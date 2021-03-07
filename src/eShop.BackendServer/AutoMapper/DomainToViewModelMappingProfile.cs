@@ -14,6 +14,7 @@ namespace eShop.BackendServer.AutoMapper
         {
             CreateMap<AppRole, RoleVm>().MaxDepth(2);
             CreateMap<User, UserVm>().MaxDepth(2);
+            CreateMap<Function, FunctionVm>().MaxDepth(2);
         }
     }
 }

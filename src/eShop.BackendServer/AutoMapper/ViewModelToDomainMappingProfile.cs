@@ -15,6 +15,8 @@ namespace eShop.BackendServer.AutoMapper
             CreateMap<RoleCreateRequest, AppRole>().ConstructUsing(c => new AppRole(c.Id,c.Name));
             CreateMap<UserCreateRequest, User>().ConstructUsing(u => new User(Guid.NewGuid().ToString(),
                 u.UserName, u.FirstName, u.LastName, u.Email, u.PhoneNumber, u.Dob));
+            CreateMap<FunctionCreateRequest, Function>().ConstructUsing(f => new Function(f.Id,
+                f.Url, f.SortOrder, f.ParentId, f.Icon, f.NameTemp));
         }
     }
 }

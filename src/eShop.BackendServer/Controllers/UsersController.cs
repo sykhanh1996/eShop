@@ -179,7 +179,7 @@ namespace eShop.BackendServer.Controllers
                         select new FunctionVm
                         {
                             Id = f.Id,
-                            Name = f.NameTemp,
+                            NameTemp = f.NameTemp,
                             Url = f.Url,
                             ParentId = f.ParentId,
                             SortOrder = f.SortOrder,
