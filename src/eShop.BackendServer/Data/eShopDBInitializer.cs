@@ -93,20 +93,20 @@ namespace eShop.BackendServer.Data
             {
                 _context.Functions.AddRange(new List<Function>
                 {
-                    new Function {Id = "DASHBOARD",  ParentId = null, SortOrder = 1,Url = "/dashboard" },
+                    new Function {Id = "DASHBOARD",  ParentId = null,NameTemp = "Thống kê",SortOrder = 1,Url = "/dashboard" },
 
-                    new Function {Id = "PRODUCT",ParentId = null,Url = "/products" },
+                    new Function {Id = "PRODUCT",ParentId = null,NameTemp = "Sản phẩm",Url = "/products" },
 
-                    new Function {Id = "CATEGORY",ParentId = null,Url = "/categories" },
+                    new Function {Id = "CATEGORY",ParentId = null,NameTemp = "Thể loại",Url = "/categories" },
 
-                    new Function {Id = "BILL",ParentId = null,Url = "/bills"  },
+                    new Function {Id = "BILL",ParentId = null,NameTemp = "Hóa đơn",Url = "/bills"  },
 
-                    new Function {Id = "SYSTEM", ParentId = null, Url = "/systems"},
+                    new Function {Id = "SYSTEM", ParentId = null,NameTemp = "Hệ thống", Url = "/systems"},
 
-                    new Function {Id = "SYSTEM_USER", ParentId = "SYSTEM", Url = "/system/users"},
-                    new Function {Id = "SYSTEM_ROLE", ParentId = "SYSTEM", Url = "/system/roles"},
-                    new Function {Id = "SYSTEM_FUNCTION",ParentId = "SYSTEM", Url = "/system/functions"},
-                    new Function {Id = "SYSTEM_PERMISSION",ParentId = "SYSTEM", Url = "/system/permissions"}
+                    new Function {Id = "SYSTEM_USER", ParentId = "SYSTEM",NameTemp = "Người dùng", Url = "/system/users"},
+                    new Function {Id = "SYSTEM_ROLE", ParentId = "SYSTEM",NameTemp = "Nhóm Quyền", Url = "/system/roles"},
+                    new Function {Id = "SYSTEM_FUNCTION",ParentId = "SYSTEM",NameTemp = "Chức năng", Url = "/system/functions"},
+                    new Function {Id = "SYSTEM_PERMISSION",ParentId = "SYSTEM",NameTemp = "Quyền hạn", Url = "/system/permissions"}
                 });
                 await _context.SaveChangesAsync();
             }

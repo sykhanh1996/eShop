@@ -10,7 +10,7 @@ using eShop.BackendServer.Data;
 namespace eShop.BackendServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210208170408_Initiation")]
+    [Migration("20210309174507_Initiation")]
     partial class Initiation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,8 @@ namespace eShop.BackendServer.Data.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
+
+            modelBuilder.HasSequence("ProductSequence");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -749,6 +751,10 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("NameTemp")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("ParentId")
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -1093,11 +1099,11 @@ namespace eShop.BackendServer.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("eShop.BackendServer.Data.Entities.UserRole", b =>
+            modelBuilder.Entity("eShop.BackendServer.Data.Entities.AppRole", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
-                    b.HasDiscriminator().HasValue("UserRole");
+                    b.HasDiscriminator().HasValue("AppRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1451,7 +1457,7 @@ namespace eShop.BackendServer.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eShop.BackendServer.Data.Entities.UserRole", "UserRole")
+                    b.HasOne("eShop.BackendServer.Data.Entities.AppRole", "UserRole")
                         .WithMany("Permissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1603,7 +1609,7 @@ namespace eShop.BackendServer.Data.Migrations
                     b.Navigation("Bills");
                 });
 
-            modelBuilder.Entity("eShop.BackendServer.Data.Entities.UserRole", b =>
+            modelBuilder.Entity("eShop.BackendServer.Data.Entities.AppRole", b =>
                 {
                     b.Navigation("Permissions");
                 });

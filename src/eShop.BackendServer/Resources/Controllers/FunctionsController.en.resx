@@ -144,7 +144,7 @@
   <data name="EndPostFunctionSuccess" xml:space="preserve">
     <value>End PostFunction API - Success</value>
   </data>
-  <data name="IdNotExisted" xml:space="preserve">
+  <data name="IdExisted" xml:space="preserve">
     <value>Function with ID {0} is existed.</value>
   </data>
 </root>

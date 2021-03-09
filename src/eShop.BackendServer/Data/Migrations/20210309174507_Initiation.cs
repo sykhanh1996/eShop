@@ -7,6 +7,9 @@ namespace eShop.BackendServer.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateSequence(
+                name: "ProductSequence");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -119,7 +122,8 @@ namespace eShop.BackendServer.Data.Migrations
                     Url = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
                     ParentId = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    Icon = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                    Icon = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    NameTemp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1077,6 +1081,9 @@ namespace eShop.BackendServer.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropSequence(
+                name: "ProductSequence");
         }
     }
 }

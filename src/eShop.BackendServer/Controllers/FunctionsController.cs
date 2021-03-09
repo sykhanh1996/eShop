@@ -45,7 +45,7 @@ namespace eShop.BackendServer.Controllers
 
             var dbFunction = await _context.Functions.FindAsync(request.Id);
             if (dbFunction != null)
-                return BadRequest(new ApiBadRequestResponse(string.Format(_localizer["IdNotExisted"], request.Id)));
+                return BadRequest(new ApiBadRequestResponse(string.Format(_localizer["IdExisted"], request.Id)));//dung dependecy
 
             var function = new Function()
             {
@@ -113,6 +113,8 @@ namespace eShop.BackendServer.Controllers
             {
                 Items = lstItem,
                 TotalRecords = totalRecords,
+                PageSize = pageSize,
+                PageIndex = pageIndex
             };
             return Ok(pagination);
         }

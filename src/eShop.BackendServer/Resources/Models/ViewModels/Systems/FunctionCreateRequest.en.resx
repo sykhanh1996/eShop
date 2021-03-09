@@ -117,34 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddCommandFail" xml:space="preserve">
-    <value>Thêm Command tới Function thất bại</value>
+  <data name="Function Id cannot over limit 50 characters" xml:space="preserve">
+    <value>Function ID cannot over limit 50 characters</value>
   </data>
-  <data name="BeginFunction" xml:space="preserve">
-    <value>Begin PostFunction API</value>
+  <data name="Id value is required" xml:space="preserve">
+    <value>ID value is required</value>
   </data>
-  <data name="Cannotfoundfunction" xml:space="preserve">
-    <value>Không thể tìm thấy chức năng với ID: {0}</value>
+  <data name="Name cannot over limit 200 characters" xml:space="preserve">
+    <value>Name cannot over limit 200 characters</value>
   </data>
-  <data name="CommandExisted" xml:space="preserve">
-    <value>Command này đã tồn tại trong Function</value>
+  <data name="Name value is required" xml:space="preserve">
+    <value>Name value is required</value>
   </data>
-  <data name="CreateFunctionFail" xml:space="preserve">
-    <value>Tạo Function thất bại</value>
+  <data name="URL cannot over limit 200 characters" xml:space="preserve">
+    <value>URL cannot over limit 200 characters</value>
   </data>
-  <data name="DeleteCommandFail" xml:space="preserve">
-    <value>Xóa Command tới Function thất bại</value>
+  <data name="URL cannot over limit 50 characters" xml:space="preserve">
+    <value>URL cannot over limit 50 characters</value>
   </data>
-  <data name="DeleteFunctionFail" xml:space="preserve">
-    <value>Xóa Chức năng thất bại</value>
-  </data>
-  <data name="EndPostFunctionFail" xml:space="preserve">
-    <value>End PostFunction API - Failed</value>
-  </data>
-  <data name="EndPostFunctionSuccess" xml:space="preserve">
-    <value>End PostFunction API - Success</value>
-  </data>
-  <data name="IdExisted" xml:space="preserve">
-    <value>Chức năng với ID {0} không tồn tại</value>
+  <data name="URL value is required" xml:space="preserve">
+    <value>URL value is required</value>
   </data>
 </root>

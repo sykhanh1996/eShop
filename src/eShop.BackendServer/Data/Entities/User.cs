@@ -15,7 +15,7 @@ namespace eShop.BackendServer.Data.Entities
         }
 
         public User(string id, string userName, string firstName, string lastName,
-            string email, string phoneNumber, DateTime dob)
+            string email, string phoneNumber, DateTime? dob)
         {
             Id = id;
             UserName = userName;
