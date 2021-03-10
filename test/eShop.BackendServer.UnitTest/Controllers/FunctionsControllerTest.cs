@@ -10,6 +10,7 @@ using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
 using eShop.BackendServer.Models.ViewModels;
 using eShop.BackendServer.Models.ViewModels.Systems;
+using eShop.BackendServer.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -23,8 +24,9 @@ namespace eShop.BackendServer.UnitTest.Controllers
     {
         private readonly IMapper _mapper;
         private ApplicationDbContext _context;
-        private readonly IStringLocalizer<FunctionsController> _localizer;
+        private IStringLocalizer<FunctionsController> _localizer;
         private Mock<ILogger<FunctionsController>> _mockLogger;
+        private IString _returnString;
         private List<Function> _functionSources = new List<Function>(){
             new Function("1","test1",1,"test1","icon1","name1"),
             new Function("2","test2",2,"test2","icon2","name2"),
@@ -49,15 +51,15 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public void Should_Create_Instance_Not_Null_Success()
         {
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer);
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             Assert.NotNull(controller);
         }
         [Fact]
         public async Task PostFunction_ValidInput_Success()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
-
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            _localizer = MockLocalizer();
+            _returnString = MockString();
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.PostFunction(new FunctionCreateRequest
             {
                 Id = "PostFunction_ValidInput_Success",
@@ -75,7 +77,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task PostFunction_ValidInput_Failed()
         {
-       
+
             _context.Functions.Add(
                 new Function
                 {
@@ -84,12 +86,13 @@ namespace eShop.BackendServer.UnitTest.Controllers
                     NameTemp = "PostUser_ValidInput_Failed",
                     SortOrder = 1,
                     Url = "/PostUser_ValidInput_Failed",
-               
+
                 }
             );
             await _context.SaveChangesAsync();
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            _localizer = MockLocalizer();
+            _returnString = MockString();
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
 
             var result = await controller.PostFunction(new FunctionCreateRequest()
             {
@@ -106,7 +109,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task GetFunction_HasData_ReturnSuccess()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
+            _localizer = MockLocalizer();
             _context.Functions.AddRange(new List<Function>()
             {
                 new Function(){
@@ -118,7 +121,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
                 }
             });
             await _context.SaveChangesAsync();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.GetFunctions();
             var okResult = result as OkObjectResult;
             var UserVms = okResult.Value as IEnumerable<FunctionVm>;
@@ -127,7 +130,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task GetFunctionsPaging_NoFilter_ReturnSuccess()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
+            _localizer = MockLocalizer();
             _context.Functions.AddRange(new List<Function>()
             {
                 new Function(){
@@ -160,7 +163,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
                 }
             });
             await _context.SaveChangesAsync();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.GetFunctionsPaging(null, 1, 2);
             var okResult = result as OkObjectResult;
             var UserVms = okResult.Value as Pagination<FunctionVm>;
@@ -170,7 +173,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task GetUsersPaging_HasFilter_ReturnSuccess()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
+            _localizer = MockLocalizer();
             _context.Functions.AddRange(new List<Function>()
             {
                 new Function(){
@@ -183,7 +186,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
             });
             await _context.SaveChangesAsync();
 
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.GetFunctionsPaging("GetUsersPaging_HasFilter_ReturnSuccess", 1, 2);
             var okResult = result as OkObjectResult;
             var UserVms = okResult.Value as Pagination<FunctionVm>;
@@ -193,7 +196,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task GetById_HasData_ReturnSuccess()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
+            _localizer = MockLocalizer();
             _context.Functions.AddRange(new List<Function>()
             {
                 new Function(){
@@ -205,7 +208,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
                 }
             });
             await _context.SaveChangesAsync();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.GetById("GetById_HasData_ReturnSuccess");
             var okResult = result as OkObjectResult;
             Assert.NotNull(okResult);
@@ -216,7 +219,8 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task PutFunction_ValidInput_Success()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
+            _localizer = MockLocalizer();
+            _returnString = MockString();
             _context.Functions.AddRange(new List<Function>()
             {
                 new Function(){
@@ -228,7 +232,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
                 }
             });
             await _context.SaveChangesAsync();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.PutFunction("PutUser_ValidInput_Success", new FunctionCreateRequest()
             {
                 ParentId = null,
@@ -241,8 +245,9 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task PutFunction_ValidInput_Failed()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            _localizer = MockLocalizer();
+            _returnString = MockString();
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
 
             var result = await controller.PutFunction("PutUser_ValidInput_Failed", new FunctionCreateRequest()
             {
@@ -256,7 +261,8 @@ namespace eShop.BackendServer.UnitTest.Controllers
         [Fact]
         public async Task DeleteUser_ValidInput_Success()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
+            _localizer = MockLocalizer();
+            _returnString = MockString();
             _context.Functions.AddRange(new List<Function>()
             {
                 new Function(){
@@ -268,15 +274,16 @@ namespace eShop.BackendServer.UnitTest.Controllers
                 }
             });
             await _context.SaveChangesAsync();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.DeleteFunction("DeleteUser_ValidInput_Success");
             Assert.IsType<OkObjectResult>(result);
         }
         [Fact]
         public async Task DeleteUser_ValidInput_Failed()
         {
-            IStringLocalizer<FunctionsController> localizer = MockLocalizer();
-            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, localizer);
+            _localizer = MockLocalizer();
+            _returnString = MockString();
+            var controller = new FunctionsController(_context, _mockLogger.Object, _mapper, _localizer, _returnString);
             var result = await controller.DeleteFunction("DeleteUser_ValidInput_Failed");
             Assert.IsType<NotFoundObjectResult>(result);
         }
@@ -285,10 +292,18 @@ namespace eShop.BackendServer.UnitTest.Controllers
         private static IStringLocalizer<FunctionsController> MockLocalizer()
         {
             var mock = new Mock<IStringLocalizer<FunctionsController>>();
-            var localizedString = new LocalizedString("", "");
+            var localizedString = new LocalizedString("1", "{0} la id");
             mock.Setup(_ => _[""]).Returns(localizedString);
             var localizer = mock.Object;
             return localizer;
+        }
+        private static IString MockString()
+        {
+            var mock = new Mock<IString>();
+            var replaceText = string.Empty;
+            var text = string.Empty;
+            mock.Setup(x => x.ReturnString(replaceText, text)).Returns(string.Empty);
+            return mock.Object;
         }
 
         #endregion

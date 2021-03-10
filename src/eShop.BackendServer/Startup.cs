@@ -21,6 +21,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using eShop.BackendServer.Models.ViewModels.Systems;
+using eShop.BackendServer.Services.Functions;
+using eShop.BackendServer.Services.Interfaces;
 
 namespace eShop.BackendServer
 {
@@ -135,6 +137,7 @@ namespace eShop.BackendServer
             services.AddTransient<eShopDBInitializer>();
             services.AddTransient<IEmailSender, EmailSenderService>();
             services.AddTransient<ISequenceService, SequenceService>();
+            services.AddTransient<IString, StringFunction>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "eShop API", Version = "v1" });

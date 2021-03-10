@@ -208,7 +208,7 @@ namespace eShop.BackendServer.UnitTest.Controllers
                 });
 
             _mockRoleManager.Setup(x => x.UpdateAsync(It.IsAny<AppRole>()))
-                .ReturnsAsync(IdentityResult.Failed(new IdentityError[] { }));
+                .ReturnsAsync(IdentityResult.Failed());
 
             var rolesController = new RolesController(_mockRoleManager.Object, _mapper, _context, _localizer);
             var result = await rolesController.PutRole("test", new RoleCreateRequest()

@@ -12,7 +12,7 @@ namespace eShop.BackendServer.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
-            CreateMap<RoleCreateRequest, AppRole>().ConstructUsing(c => new AppRole(c.Id,c.Name));
+            CreateMap<RoleCreateRequest, AppRole>().ConstructUsing(c => new AppRole(c.Id, c.Name));
             CreateMap<UserCreateRequest, User>().ConstructUsing(u => new User(Guid.NewGuid().ToString(),
                 u.UserName, u.FirstName, u.LastName, u.Email, u.PhoneNumber, u.Dob));
             CreateMap<FunctionCreateRequest, Function>().ConstructUsing(f => new Function(f.Id,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,6 +11,7 @@ using eShop.BackendServer.Data.Entities;
 using eShop.BackendServer.Helpers;
 using eShop.BackendServer.Models.ViewModels;
 using eShop.BackendServer.Models.ViewModels.Systems;
+using eShop.BackendServer.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,22 +20,27 @@ using Microsoft.Extensions.Logging;
 
 namespace eShop.BackendServer.Controllers
 {
+
+
     public class FunctionsController : BaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<FunctionsController> _logger;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<FunctionsController> _localizer;
+        private readonly IString _returnString;
 
         public FunctionsController(ApplicationDbContext context,
             ILogger<FunctionsController> logger,
             IMapper mapper,
-            IStringLocalizer<FunctionsController> localizer)
+            IStringLocalizer<FunctionsController> localizer,
+            IString returnString)
         {
             _context = context;
             _logger = logger;
             _mapper = mapper;
             _localizer = localizer;
+            _returnString = returnString;
         }
 
         [HttpPost]
@@ -42,10 +49,11 @@ namespace eShop.BackendServer.Controllers
         public async Task<IActionResult> PostFunction([FromBody] FunctionCreateRequest request)
         {
             _logger.LogInformation(_localizer["BeginFunction"]);
+            var errMess = _returnString.ReturnString(_localizer["IdExisted"], request.Id);
 
             var dbFunction = await _context.Functions.FindAsync(request.Id);
             if (dbFunction != null)
-                return BadRequest(new ApiBadRequestResponse(string.Format(_localizer["IdExisted"], request.Id)));//dung dependecy
+                return BadRequest(new ApiBadRequestResponse(errMess));//dung dependecy
 
             var function = new Function()
             {
@@ -137,9 +145,14 @@ namespace eShop.BackendServer.Controllers
         {
             var function = await _context.Functions.FindAsync(id);
             if (function == null)
-                return NotFound(new ApiNotFoundResponse(string.Format(_localizer["Cannotfoundfunction"],id)));
-            _mapper.Map(request, function);
-    
+                return NotFound(new ApiNotFoundResponse(_returnString.ReturnString(_localizer["Cannotfoundfunction"], id)));
+
+            function.NameTemp = request.NameTemp;
+            function.ParentId = request.ParentId;
+            function.SortOrder = request.SortOrder;
+            function.Url = request.Url;
+            function.Icon = request.Icon;
+
             _context.Functions.Update(function);
             var result = await _context.SaveChangesAsync();
 
@@ -155,8 +168,10 @@ namespace eShop.BackendServer.Controllers
         public async Task<IActionResult> DeleteFunction(string id)
         {
             var function = await _context.Functions.FindAsync(id);
+            var errMess = _returnString.ReturnString(_localizer["Cannotfoundfunction"], id);
+
             if (function == null)
-                return NotFound(new ApiNotFoundResponse(string.Format(_localizer["Cannotfoundfunction"],id)));
+                return NotFound(new ApiNotFoundResponse(errMess));
 
             _context.Functions.Remove(function);
 
