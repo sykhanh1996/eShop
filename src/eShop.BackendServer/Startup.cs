@@ -20,6 +20,8 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using AutoMapper;
+using eShop.BackendServer.AutoMapper;
 using eShop.BackendServer.Models.ViewModels.Systems;
 using eShop.BackendServer.Services.Functions;
 using eShop.BackendServer.Services.Interfaces;
@@ -101,6 +103,13 @@ namespace eShop.BackendServer
             {
                 otps.SuppressModelStateInvalidFilter = true;
             });
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new DomainToViewModelMappingProfile());
+            //    mc.AddProfile(new ViewModelToDomainMappingProfile());
+            //});
+            //IMapper mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton(mapper);
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews()
