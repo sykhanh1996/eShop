@@ -80,7 +80,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpGet]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> GetFunctions()
         {
             var functions = _context.Functions;

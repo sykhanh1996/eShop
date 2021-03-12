@@ -198,6 +198,7 @@ namespace eShop.BackendServer.Data
                     _context.Permissions.Add(new Permission(function.Id, adminRole.Id, "UPDATE"));
                     _context.Permissions.Add(new Permission(function.Id, adminRole.Id, "DELETE"));
                     _context.Permissions.Add(new Permission(function.Id, adminRole.Id, "VIEW"));
+                    _context.Permissions.Add(new Permission(function.Id, adminRole.Id, "APPROVE"));
                 }
             }
             await _context.SaveChangesAsync();
