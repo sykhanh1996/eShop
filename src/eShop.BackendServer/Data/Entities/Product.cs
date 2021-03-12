@@ -31,11 +31,11 @@ namespace eShop.BackendServer.Data.Entities
         public int ViewCount { get; set; }
 
         public int? Waranty { get; set; }
-
-        [DefaultValue(0)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
-
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? PromotionPrice { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal OriginalPrice { get; set; }
         public Status Status { get; set; }
         public DateTime CreateDate { get; set; }

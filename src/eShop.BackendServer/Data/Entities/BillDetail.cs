@@ -8,8 +8,7 @@ namespace eShop.BackendServer.Data.Entities
     {
         public int ProductId { get; set; }
         public int BillId { get; set; }
-
-        [DefaultValue(0)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
