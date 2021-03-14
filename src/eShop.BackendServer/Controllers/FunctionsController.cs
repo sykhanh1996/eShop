@@ -44,7 +44,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpPost]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.CREATE)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.CREATE)]
         [ApiValidationFilter]
         public async Task<IActionResult> PostFunction([FromBody] FunctionCreateRequest request)
         {
@@ -91,7 +91,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpGet("{functionId}/parents")]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> GetFunctionsByParentId(string functionId)
         {
             var functions = _context.Functions.Where(x => x.ParentId == functionId);
@@ -102,7 +102,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpGet("filter")]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> GetFunctionsPaging(string filter, int pageIndex, int pageSize)
         {
             var query = _context.Functions.AsQueryable();
@@ -139,7 +139,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpPut("{id}")]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.UPDATE)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.UPDATE)]
         [ApiValidationFilter]
         public async Task<IActionResult> PutFunction(string id, [FromBody] FunctionCreateRequest request)
         {
@@ -164,7 +164,7 @@ namespace eShop.BackendServer.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.DELETE)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.DELETE)]
         public async Task<IActionResult> DeleteFunction(string id)
         {
             var function = await _context.Functions.FindAsync(id);
@@ -187,7 +187,7 @@ namespace eShop.BackendServer.Controllers
             return BadRequest(new ApiBadRequestResponse(_localizer["DeleteFunctionFail"]));
         }
         [HttpGet("{functionId}/commands")]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> GetCommandsInFunction(string functionId)
         {
             var query = from a in _context.Commands
@@ -213,7 +213,7 @@ namespace eShop.BackendServer.Controllers
             return Ok(data);
         }
         [HttpPost("{functionId}/commands")]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.CREATE)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.CREATE)]
         [ApiValidationFilter]
         public async Task<IActionResult> PostCommandToFunction(string functionId, [FromBody] CommandAssignRequest request)
         {
@@ -259,7 +259,7 @@ namespace eShop.BackendServer.Controllers
             return BadRequest(new ApiBadRequestResponse(_localizer["AddCommandFail"]));
         }
         [HttpDelete("{functionId}/commands")]
-        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.UPDATE)]
+        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.UPDATE)]
         public async Task<IActionResult> DeleteCommandToFunction(string functionId, [FromQuery] CommandAssignRequest request)
         {
             foreach (var commandId in request.CommandIds)

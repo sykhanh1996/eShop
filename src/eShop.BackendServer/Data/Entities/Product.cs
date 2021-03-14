@@ -11,6 +11,19 @@ namespace eShop.BackendServer.Data.Entities
     [Table("Products")]
     public class Product : ISwitchable, IDateTracking
     {
+        public Product() { }
+        public Product(string sku, string imageUrl, string imageList, string thumbImage, int? waranty, decimal price, decimal? promotionPrice, decimal originalPrice, Status status)
+        {
+            Sku = sku;
+            ImageUrl = imageUrl;
+            ImageList = imageList;
+            ThumbImage = thumbImage;
+            Waranty = waranty;
+            Price = price;
+            PromotionPrice = promotionPrice;
+            OriginalPrice = originalPrice;
+            Status = status;
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -27,7 +40,7 @@ namespace eShop.BackendServer.Data.Entities
         [Column(TypeName = "varchar(1000)")]
         public string ThumbImage { get; set; }
 
-        [DefaultValue(0)]
+
         public int ViewCount { get; set; }
 
         public int? Waranty { get; set; }

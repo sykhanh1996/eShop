@@ -155,11 +155,11 @@ namespace eShop.BackendServer.Data.Migrations
                     ImageUrl = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: true),
                     ImageList = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ThumbImage = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: true),
-                    ViewCount = table.Column<int>(type: "int", nullable: false),
+                    ViewCount = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Waranty = table.Column<int>(type: "int", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     PromotionPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    OriginalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OriginalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -741,7 +741,7 @@ namespace eShop.BackendServer.Data.Migrations
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     BillId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

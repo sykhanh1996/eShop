@@ -3,6 +3,7 @@
     public enum Status
     {
         InActive = 0,
-        Active = 1
+        Active = 1,
+        Default = Active
     }
 }

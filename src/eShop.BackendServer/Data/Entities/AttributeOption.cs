@@ -14,7 +14,7 @@ namespace eShop.BackendServer.Data.Entities
         public int Id { get; set; }
 
         public int AttributeId { get; set; }
-        [DefaultValue(0)]
+
         public int SortOrder { get; set; }
 
         [ForeignKey("AttributeId")]

@@ -17,7 +17,7 @@ namespace eShop.BackendServer.Data.Entities
 
         public string Code { get; set; }
         public string Name { get; set; }
-        [DefaultValue(0)]
+
         public int SortOrder { get; set; }
         public string BackendType { get; set; }
         public Status Status { get; set; }

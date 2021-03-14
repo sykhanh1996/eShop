@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using eShop.BackendServer.Data.Entities;
+using eShop.BackendServer.Models.ViewModels.Contents;
 using eShop.BackendServer.Models.ViewModels.Systems;
 
 namespace eShop.BackendServer.AutoMapper
@@ -17,6 +18,8 @@ namespace eShop.BackendServer.AutoMapper
                 u.UserName, u.FirstName, u.LastName, u.Email, u.PhoneNumber, u.Dob));
             CreateMap<FunctionCreateRequest, Function>().ConstructUsing(f => new Function(f.Id,
                 f.Url, f.SortOrder, f.ParentId, f.Icon, f.NameTemp));
+            CreateMap<ProductCreateRequest, Product>().ConstructUsing(p => new Product(p.Sku,p.ImageUrl,p.ImageList,p.ThumbImage,
+                p.Waranty,p.Price,p.PromotionPrice,p.OriginalPrice,p.Status));
         }
     }
 }

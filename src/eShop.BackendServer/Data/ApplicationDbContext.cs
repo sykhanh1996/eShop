@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using eShop.BackendServer.Data.Configurations;
@@ -8,14 +9,16 @@ using eShop.BackendServer.Data.Entities;
 using eShop.BackendServer.Data.Extensions;
 using eShop.BackendServer.Data.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Attribute = System.Attribute;
 
 namespace eShop.BackendServer.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
+        public string UserId { get; set; }
+
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
@@ -62,6 +65,9 @@ namespace eShop.BackendServer.Data
             builder.Entity<Bill>().Property(x => x.SortOrder).HasDefaultValue(0);
             builder.Entity<Category>().Property(x => x.SortOrder).HasDefaultValue(0);
             builder.Entity<Language>().Property(x => x.SortOrder).HasDefaultValue(0);
+            builder.Entity<Category>().Property(x => x.SortOrder).HasDefaultValue(0);
+
+
 
             #endregion Identity Configuration
 
@@ -72,9 +78,11 @@ namespace eShop.BackendServer.Data
             builder.AddConfiguration(new PermissionConfiguration());
             builder.AddConfiguration(new ProductInCategoryConfiguration());
             builder.AddConfiguration(new ProductTranslationConfiguration());
+            builder.AddConfiguration(new ProductConfiguration());
 
             builder.HasSequence("ProductSequence");
         }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             IEnumerable<EntityEntry> modified = ChangeTracker.Entries()
@@ -86,10 +94,12 @@ namespace eShop.BackendServer.Data
                     if (item.State == EntityState.Added)
                     {
                         changedOrAddedItem.CreateDate = DateTime.Now;
+                        if (!string.IsNullOrEmpty(UserId)) changedOrAddedItem.CreatedBy = UserId;
                     }
                     else
                     {
                         changedOrAddedItem.LastModifiedDate = DateTime.Now;
+                        if (!string.IsNullOrEmpty(UserId)) changedOrAddedItem.ModifiedBy = UserId;
                     }
                 }
             }

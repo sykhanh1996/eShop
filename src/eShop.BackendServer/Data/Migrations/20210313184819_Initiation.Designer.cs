@@ -10,7 +10,7 @@ using eShop.BackendServer.Data;
 namespace eShop.BackendServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210309174507_Initiation")]
+    [Migration("20210313184819_Initiation")]
     partial class Initiation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -605,7 +605,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -889,10 +891,14 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<decimal>("OriginalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
                     b.Property<decimal?>("PromotionPrice")
                         .HasColumnType("decimal(18,2)");
@@ -908,7 +914,9 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasColumnType("varchar(1000)");
 
                     b.Property<int>("ViewCount")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int?>("Waranty")
                         .HasColumnType("int");

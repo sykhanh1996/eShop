@@ -25,5 +25,8 @@ namespace eShop.BackendServer.Constants
         SYSTEM_ROLE,
         SYSTEM_FUNCTION,
         SYSTEM_PERMISSION,
+
+        PRODUCT
+        
     }
 }

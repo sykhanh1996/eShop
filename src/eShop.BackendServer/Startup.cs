@@ -147,6 +147,12 @@ namespace eShop.BackendServer
             services.AddTransient<IEmailSender, EmailSenderService>();
             services.AddTransient<ISequenceService, SequenceService>();
             services.AddTransient<IString, StringFunction>();
+            services.AddTransient<IUserResolveService, UserResolveService>();
+            services
+                .AddMvc(options =>
+                {
+                    options.Filters.Add(typeof(AppInitializerFilter));
+                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "eShop API", Version = "v1" });
