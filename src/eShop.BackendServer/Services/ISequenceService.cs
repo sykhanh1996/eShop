@@ -7,6 +7,6 @@ namespace eShop.BackendServer.Services
 {
     public interface ISequenceService
     {
-        Task<int> GetKnowledgeBaseNewId();
+        Task<int> GetProductNewId();
     }
 }

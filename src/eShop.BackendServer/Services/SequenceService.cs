@@ -18,7 +18,7 @@ namespace eShop.BackendServer.Services
             _configuration = configuration;
         }
 
-        public async Task<int> GetKnowledgeBaseNewId()
+        public async Task<int> GetProductNewId()
         {
             using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {

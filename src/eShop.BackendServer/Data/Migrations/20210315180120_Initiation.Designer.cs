@@ -10,7 +10,7 @@ using eShop.BackendServer.Data;
 namespace eShop.BackendServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210313184819_Initiation")]
+    [Migration("20210315180120_Initiation")]
     partial class Initiation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -865,9 +865,7 @@ namespace eShop.BackendServer.Data.Migrations
             modelBuilder.Entity("eShop.BackendServer.Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");

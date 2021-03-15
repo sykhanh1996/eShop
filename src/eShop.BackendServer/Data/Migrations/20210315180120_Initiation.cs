@@ -149,8 +149,7 @@ namespace eShop.BackendServer.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Sku = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: true),
                     ImageList = table.Column<string>(type: "nvarchar(max)", nullable: true),

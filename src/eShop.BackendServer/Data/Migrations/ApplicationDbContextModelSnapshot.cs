@@ -863,9 +863,7 @@ namespace eShop.BackendServer.Data.Migrations
             modelBuilder.Entity("eShop.BackendServer.Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");

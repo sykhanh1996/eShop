@@ -20,6 +20,8 @@ namespace eShop.BackendServer.AutoMapper
                 f.Url, f.SortOrder, f.ParentId, f.Icon, f.NameTemp));
             CreateMap<ProductCreateRequest, Product>().ConstructUsing(p => new Product(p.Sku,p.ImageUrl,p.ImageList,p.ThumbImage,
                 p.Waranty,p.Price,p.PromotionPrice,p.OriginalPrice,p.Status));
+            CreateMap<ProductCreateRequest, ProductTranslation>().ConstructUsing(p => new ProductTranslation(p.Id,p.LanguageId,p.Name,
+                p.Description,p.Content,p.SeoPageTitle,p.SeoAlias,p.SeoKeywords,p.SeoDescription));
         }
     }
 }

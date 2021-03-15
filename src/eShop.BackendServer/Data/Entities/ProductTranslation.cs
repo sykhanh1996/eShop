@@ -8,6 +8,19 @@ namespace eShop.BackendServer.Data.Entities
     [Table("ProductTranslations")]
     public class ProductTranslation : IHasSeoMetaData, IDateTracking
     {
+        public ProductTranslation(){}
+        public ProductTranslation(int id,string languageId,string name,string description, string content, string seoPageTitle, string seoAlias, string seoKeywords, string seoDescription)
+        {
+            ProductId = id;
+            LanguageId = languageId;
+            Name = name;
+            Description = description;
+            Content = content;
+            SeoPageTitle = seoPageTitle;
+            SeoAlias = seoAlias;
+            SeoKeywords = seoKeywords;
+            SeoDescription = seoDescription;
+        }
         public int ProductId { get; set; }
         public string LanguageId { get; set; }
 

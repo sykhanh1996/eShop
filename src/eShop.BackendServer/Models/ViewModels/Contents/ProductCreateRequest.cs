@@ -10,6 +10,8 @@ namespace eShop.BackendServer.Models.ViewModels.Contents
 {
     public class ProductCreateRequest
     {
+        public int Id { get; set; }
+        public string LanguageId{ get; set; }
         public string Sku { get; set; }
         public string ImageUrl { get; set; }
         public string ImageList { get; set; }
@@ -19,5 +21,12 @@ namespace eShop.BackendServer.Models.ViewModels.Contents
         public decimal? PromotionPrice { get; set; }
         public decimal OriginalPrice { get; set; }
         public Status Status { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Content { get; set; }
+        public string SeoPageTitle { get; set; }
+        public string SeoAlias { get; set; }
+        public string SeoKeywords { get; set; }
+        public string SeoDescription { get; set; }
     }
 }

@@ -72,13 +72,13 @@ namespace eShop.BackendServer.Data
 
             #region Ngôn ngữ
 
-            if (!_context.Functions.Any())
+            if (!_context.Languages.Any())
             {
                 _context.Languages.AddRange(new List<Language>
                 {
                     new Language
-                        {Id = "EN", Name = "English", IsDefault = false, SortOrder = 1, Status = Status.Active},
-                    new Language {Id = "VN", Name = "Việt Nam", IsDefault = true, SortOrder = 2, Status = Status.Active}
+                        {Id = "en", Name = "English", IsDefault = false, SortOrder = 1, Status = Status.Active},
+                    new Language {Id = "vi", Name = "Việt Nam", IsDefault = true, SortOrder = 2, Status = Status.Active}
                 });
                 await _context.SaveChangesAsync();
             }
@@ -131,29 +131,30 @@ namespace eShop.BackendServer.Data
             {
                 _context.FunctionTranslations.AddRange(new List<FunctionTranslation>
                 {
-                    new FunctionTranslation{FunctionId = "DASHBOARD", LanguageId = "EN", Name = "Dashboard", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "DASHBOARD", LanguageId = "VN", Name = "Bảng tin", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "PRODUCT", LanguageId = "EN", Name = "Products", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "PRODUCT", LanguageId = "VN", Name = "Sản phẩm", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "CATEGORY", LanguageId = "EN", Name = "Categories", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "CATEGORY", LanguageId = "VN", Name = "Loại hàng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "BILL", LanguageId = "EN", Name = "Orders", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "BILL", LanguageId = "VN", Name = "Đơn hàng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM", LanguageId = "EN", Name = "Systems", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM", LanguageId = "VN", Name = "Hệ thống", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_USER", LanguageId = "EN", Name = "Users", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_USER", LanguageId = "VN", Name = "Người dùng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_ROLE", LanguageId = "EN", Name = "Roles", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_ROLE", LanguageId = "VN", Name = "Nhóm quyền", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_FUNCTION", LanguageId = "EN", Name = "Functions", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_FUNCTION", LanguageId = "VN", Name = "Chức năng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_PERMISSION", LanguageId = "EN", Name = "Permissions", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
-                    new FunctionTranslation{FunctionId = "SYSTEM_PERMISSION", LanguageId = "VN", Name = "Quyền hạn", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now}
+                    new FunctionTranslation{FunctionId = "DASHBOARD", LanguageId = "en", Name = "Dashboard", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "DASHBOARD", LanguageId = "vi", Name = "Bảng tin", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "PRODUCT", LanguageId = "en", Name = "Products", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "PRODUCT", LanguageId = "vi", Name = "Sản phẩm", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "CATEGORY", LanguageId = "en", Name = "Categories", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "CATEGORY", LanguageId = "vi", Name = "Loại hàng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "BILL", LanguageId = "en", Name = "Orders", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "BILL", LanguageId = "vi", Name = "Đơn hàng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM", LanguageId = "en", Name = "Systems", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM", LanguageId = "vi", Name = "Hệ thống", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_USER", LanguageId = "en", Name = "Users", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_USER", LanguageId = "vi", Name = "Người dùng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_ROLE", LanguageId = "en", Name = "Roles", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_ROLE", LanguageId = "vi", Name = "Nhóm quyền", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_FUNCTION", LanguageId = "en", Name = "Functions", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_FUNCTION", LanguageId = "vi", Name = "Chức năng", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_PERMISSION", LanguageId = "en", Name = "Permissions", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now},
+                    new FunctionTranslation{FunctionId = "SYSTEM_PERMISSION", LanguageId = "vi", Name = "Quyền hạn", CreateDate = DateTime.Now, LastModifiedDate = DateTime.Now}
                 });
                 await _context.SaveChangesAsync();
             }
 
             #endregion
+
             var functions = _context.Functions;
 
             if (!_context.CommandInFunctions.Any())
