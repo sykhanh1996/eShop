@@ -19,6 +19,22 @@ namespace eShop.BackendServer.Data.Entities
 
         public int SortOrder { get; set; }
         public Status Status { get; set; }
+  
+        [MaxLength(255)]
+        public string NameVn { get; set; }
+
+        [MaxLength(255)]
+        public string SeoPageTitleVn { get; set; }
+
+        [MaxLength(255)]
+        [Column(TypeName = "varchar(255)")]
+        public string SeoAliasVn { get; set; }
+
+        [MaxLength(255)]
+        public string SeoKeywordsVn { get; set; }
+
+        [MaxLength(255)]
+        public string SeoDescriptionVn { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? LastModifiedDate { get; set; }
 
