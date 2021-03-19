@@ -19,9 +19,7 @@ namespace eShop.BackendServer.AutoMapper
             CreateMap<FunctionCreateRequest, Function>().ConstructUsing(f => new Function(f.Id,
                 f.Url, f.SortOrder, f.ParentId, f.Icon, f.NameTemp));
             CreateMap<ProductCreateRequest, Product>().ConstructUsing(p => new Product(p.Sku,p.ImageUrl,p.ImageList,p.ThumbImage,
-                p.Waranty,p.Price,p.PromotionPrice,p.OriginalPrice,p.Status));
-            CreateMap<ProductCreateRequest, ProductTranslation>().ConstructUsing(p => new ProductTranslation(p.Id,p.LanguageId,p.Name,
-                p.Description,p.Content,p.SeoPageTitle,p.SeoAlias,p.SeoKeywords,p.SeoDescription));
+                p.Waranty,p.Price,p.PromotionPrice,p.OriginalPrice,p.Status,p.NameVn,p.DescriptionVn,p.ContentVn,p.SeoPageTitleVn,p.SeoAliasVn,p.SeoKeywordsVn,p.SeoDescriptionVn));
         }
     }
 }

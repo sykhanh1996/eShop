@@ -12,7 +12,9 @@ namespace eShop.BackendServer.Data.Entities
     public class Product : ISwitchable, IDateTracking
     {
         public Product() { }
-        public Product(string sku, string imageUrl, string imageList, string thumbImage, int? waranty, decimal price, decimal? promotionPrice, decimal originalPrice, Status status)
+        public Product(string sku, string imageUrl, string imageList, string thumbImage, int? waranty, decimal price,
+            decimal? promotionPrice, decimal originalPrice, Status status,string nameVn,string descriptionVn,string contentVn,
+            string seoPageTitleVn,string seoAliasVn,string seoKeywordsVn,string seoDescriptionVn)
         {
             Sku = sku;
             ImageUrl = imageUrl;
@@ -23,6 +25,13 @@ namespace eShop.BackendServer.Data.Entities
             PromotionPrice = promotionPrice;
             OriginalPrice = originalPrice;
             Status = status;
+            NameVn = nameVn;
+            DescriptionVn = descriptionVn;
+            ContentVn = contentVn;
+            SeoPageTitleVn = seoPageTitleVn;
+            SeoAliasVn = seoAliasVn;
+            SeoKeywordsVn = seoKeywordsVn;
+            SeoDescriptionVn = seoDescriptionVn;
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

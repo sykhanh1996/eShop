@@ -19,12 +19,12 @@ namespace eShop.BackendServer.Models.ViewModels.Contents
         public decimal? PromotionPrice { get; set; }
         public decimal OriginalPrice { get; set; }
         public Status Status { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Content { get; set; }
-        public string SeoPageTitle { get; set; }
-        public string SeoAlias { get; set; }
-        public string SeoKeywords { get; set; }
-        public string SeoDescription { get; set; }
+        public string NameVn { get; set; }
+        public string DescriptionVn { get; set; }
+        public string ContentVn { get; set; }
+        public string SeoPageTitleVn { get; set; }
+        public string SeoAliasVn { get; set; }
+        public string SeoKeywordsVn { get; set; }
+        public string SeoDescriptionVn { get; set; }
     }
 }
