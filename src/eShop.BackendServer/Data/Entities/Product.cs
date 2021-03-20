@@ -90,8 +90,6 @@ namespace eShop.BackendServer.Data.Entities
         [MaxLength(50)]
         [Column(TypeName = "varchar(50)")]
         public string ModifiedBy { get; set; }
-
-        public ICollection<Attachment> Attachments { get; set; }
         public ICollection<AttibuteValueText> AttibuteValueTexts { get; set; }
         public ICollection<AttributeOptionValue> AttributeOptionValues { get; set; }
         public ICollection<AttributeValueDateTime> AttributeValueDateTimes { get; set; }

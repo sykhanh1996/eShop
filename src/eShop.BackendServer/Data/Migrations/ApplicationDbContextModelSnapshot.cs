@@ -260,8 +260,6 @@ namespace eShop.BackendServer.Data.Migrations
 
                     b.HasIndex("BillId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Attachments");
                 });
 
@@ -638,8 +636,28 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("NameVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SeoAliasVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("SeoDescriptionVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("SeoKeywordsVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("SeoPageTitleVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("SortOrder")
                         .ValueGeneratedOnAdd()
@@ -865,12 +883,19 @@ namespace eShop.BackendServer.Data.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<string>("ContentVn")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<string>("DescriptionVn")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ImageList")
                         .HasColumnType("nvarchar(max)");
@@ -886,6 +911,10 @@ namespace eShop.BackendServer.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("NameVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<decimal>("OriginalPrice")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
@@ -898,6 +927,22 @@ namespace eShop.BackendServer.Data.Migrations
 
                     b.Property<decimal?>("PromotionPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SeoAliasVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("SeoDescriptionVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("SeoKeywordsVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("SeoPageTitleVn")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Sku")
                         .HasColumnType("nvarchar(max)");
@@ -1176,15 +1221,7 @@ namespace eShop.BackendServer.Data.Migrations
                         .WithMany("Attachments")
                         .HasForeignKey("BillId");
 
-                    b.HasOne("eShop.BackendServer.Data.Entities.Product", "Product")
-                        .WithMany("Attachments")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Bill");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("eShop.BackendServer.Data.Entities.AttibuteValueText", b =>
@@ -1585,8 +1622,6 @@ namespace eShop.BackendServer.Data.Migrations
 
             modelBuilder.Entity("eShop.BackendServer.Data.Entities.Product", b =>
                 {
-                    b.Navigation("Attachments");
-
                     b.Navigation("AttibuteValueTexts");
 
                     b.Navigation("AttributeOptionValues");

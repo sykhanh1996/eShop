@@ -92,6 +92,11 @@ namespace eShop.BackendServer.Data.Migrations
                     ParentId = table.Column<int>(type: "int", nullable: true),
                     SortOrder = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    NameVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    SeoPageTitleVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    SeoAliasVn = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    SeoKeywordsVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    SeoDescriptionVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
@@ -160,6 +165,13 @@ namespace eShop.BackendServer.Data.Migrations
                     PromotionPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     OriginalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    NameVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    DescriptionVn = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    ContentVn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SeoPageTitleVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    SeoAliasVn = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    SeoKeywordsVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    SeoDescriptionVn = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
@@ -726,12 +738,6 @@ namespace eShop.BackendServer.Data.Migrations
                         principalTable: "Bills",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Attachments_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -842,11 +848,6 @@ namespace eShop.BackendServer.Data.Migrations
                 name: "IX_Attachments_BillId",
                 table: "Attachments",
                 column: "BillId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attachments_ProductId",
-                table: "Attachments",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AttibuteValueText_AttributeId",

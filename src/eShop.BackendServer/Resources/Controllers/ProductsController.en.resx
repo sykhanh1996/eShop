@@ -120,8 +120,20 @@
   <data name="BeginProduct" xml:space="preserve">
     <value>Begin PostProduct API</value>
   </data>
+  <data name="Cannot found attachment with ID" xml:space="preserve">
+    <value>Cannot found attachment with ID {0}</value>
+  </data>
+  <data name="Cannot found Product with ID" xml:space="preserve">
+    <value>Cannot found Product with ID: {0}</value>
+  </data>
+  <data name="Create Product is failed" xml:space="preserve">
+    <value>Create Product is failed</value>
+  </data>
   <data name="CreateProductFail" xml:space="preserve">
     <value>Create Product is failed</value>
+  </data>
+  <data name="Delete attachment failed" xml:space="preserve">
+    <value>Delete attachment failed</value>
   </data>
   <data name="EndPostProductFail" xml:space="preserve">
     <value>End PostProduct API - Failed</value>

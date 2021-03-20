@@ -41,9 +41,6 @@ namespace eShop.BackendServer.Data.Entities
         [Column(TypeName = "varchar(50)")]
         public string CreatedBy { get; set; }
 
-        [ForeignKey("ProductId")]
-        public virtual Product Product { set; get; }
-
         [ForeignKey("BillId")]
         public virtual Bill Bill { set; get; }
     }

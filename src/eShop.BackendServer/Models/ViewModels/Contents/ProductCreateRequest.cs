@@ -5,12 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using eShop.BackendServer.Data.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace eShop.BackendServer.Models.ViewModels.Contents
 {
     public class ProductCreateRequest
     {
-        public string LanguageId{ get; set; }
         public string Sku { get; set; }
         public string ImageUrl { get; set; }
         public string ImageList { get; set; }
@@ -27,5 +27,6 @@ namespace eShop.BackendServer.Models.ViewModels.Contents
         public string SeoAliasVn { get; set; }
         public string SeoKeywordsVn { get; set; }
         public string SeoDescriptionVn { get; set; }
+        public List<IFormFile> Attachments { get; set; }
     }
 }

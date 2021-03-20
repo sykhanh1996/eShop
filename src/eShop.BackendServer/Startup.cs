@@ -148,6 +148,7 @@ namespace eShop.BackendServer
             services.AddTransient<ISequenceService, SequenceService>();
             services.AddTransient<IString, StringFunction>();
             services.AddTransient<IUserResolveService, UserResolveService>();
+            services.AddTransient<IStorageService, FileStorageService>();
             services
                 .AddMvc(options =>
                 {
