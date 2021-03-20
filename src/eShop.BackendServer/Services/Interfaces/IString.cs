@@ -8,5 +8,6 @@ namespace eShop.BackendServer.Services.Interfaces
     public interface IString
     {
         string ReturnString(string replaceString, string text);
+        string ReturnString(string replaceString, string text1, string tex2);
     }
 }

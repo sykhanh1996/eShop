@@ -135,6 +135,9 @@
   <data name="Delete attachment failed" xml:space="preserve">
     <value>Delete attachment failed</value>
   </data>
+  <data name="DescriptionVn cannot over limit 500 characters" xml:space="preserve">
+    <value>DescriptionVn cannot over limit 500 characters</value>
+  </data>
   <data name="EndPostProductFail" xml:space="preserve">
     <value>End PostProduct API - Failed</value>
   </data>
@@ -143,5 +146,32 @@
   </data>
   <data name="IdExisted" xml:space="preserve">
     <value>Product with ID {0} is existed.</value>
+  </data>
+  <data name="ImageUrl cannot over limit 1000 characters" xml:space="preserve">
+    <value>ImageUrl cannot over limit 1000 characters</value>
+  </data>
+  <data name="NameVn cannot over limit 255 characters" xml:space="preserve">
+    <value>NameVn cannot over limit 255 characters</value>
+  </data>
+  <data name="OriginalPrice cannot be null" xml:space="preserve">
+    <value>OriginalPrice cannot be null</value>
+  </data>
+  <data name="Price cannot be null" xml:space="preserve">
+    <value>Price cannot be null</value>
+  </data>
+  <data name="SeoAliasVn cannot over limit 255 characters" xml:space="preserve">
+    <value>SeoAliasVn không thể vượt quá 255 kí tự</value>
+  </data>
+  <data name="SeoDescriptionVn cannot over limit 255 characters" xml:space="preserve">
+    <value>SeoDescriptionVn cannot over limit 255 characters</value>
+  </data>
+  <data name="SeoKeywordsVn cannot over limit 255 characters" xml:space="preserve">
+    <value>SeoKeywordsVn cannot over limit 255 characters</value>
+  </data>
+  <data name="SeoPageTitleVn cannot over limit 255 characters" xml:space="preserve">
+    <value>SeoPageTitleVn cannot over limit 255 characters</value>
+  </data>
+  <data name="ThumbImage cannot over limit 1000 characters" xml:space="preserve">
+    <value>ThumbImage cannot over limit 1000 characters</value>
   </data>
 </root>

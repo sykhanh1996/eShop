@@ -20,6 +20,8 @@ namespace eShop.BackendServer.AutoMapper
                 f.Url, f.SortOrder, f.ParentId, f.Icon, f.NameTemp));
             CreateMap<ProductCreateRequest, Product>().ConstructUsing(p => new Product(p.Sku,p.ImageUrl,p.ImageList,p.ThumbImage,
                 p.Waranty,p.Price,p.PromotionPrice,p.OriginalPrice,p.Status,p.NameVn,p.DescriptionVn,p.ContentVn,p.SeoPageTitleVn,p.SeoAliasVn,p.SeoKeywordsVn,p.SeoDescriptionVn));
+            CreateMap<CategoryCreateRequest, Category>().ConstructUsing(c=>new Category(c.ParentId,c.SortOrder,c.Status,
+                c.NameVn,c.SeoPageTitleVn,c.SeoAliasVn,c.SeoKeywordsVn,c.SeoDescriptionVn));
         }
     }
 }

@@ -11,6 +11,17 @@ namespace eShop.BackendServer.Data.Entities
     [Table("Categories")]
     public class Category : ISwitchable, ISortable, IDateTracking
     {
+        public Category(int? parentId, int sortOrder, Status status, string nameVn, string seoPageTitleVn, string seoAliasVn, string seoKeywordsVn, string seoDescriptionVn)
+        {
+            ParentId = parentId;
+            SortOrder = sortOrder;
+            Status = status;
+            NameVn = nameVn;
+            SeoPageTitleVn = seoPageTitleVn;
+            SeoAliasVn = seoAliasVn;
+            SeoKeywordsVn = seoKeywordsVn;
+            SeoDescriptionVn = seoDescriptionVn;
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -19,7 +30,7 @@ namespace eShop.BackendServer.Data.Entities
 
         public int SortOrder { get; set; }
         public Status Status { get; set; }
-  
+
         [MaxLength(255)]
         public string NameVn { get; set; }
 

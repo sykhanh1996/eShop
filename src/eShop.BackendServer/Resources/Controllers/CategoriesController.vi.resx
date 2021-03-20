@@ -117,61 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BeginProduct" xml:space="preserve">
-    <value>Begin PostProduct API</value>
+  <data name="Begin PostCategory API" xml:space="preserve">
+    <value>Begin PostCategory API</value>
   </data>
-  <data name="Cannot found attachment with ID" xml:space="preserve">
-    <value>Không thể tìm thấy file đính kèm với ID {0}</value>
+  <data name="Cannot found Category with ID" xml:space="preserve">
+    <value>Không thể tìm thấy Category với ID {0}</value>
   </data>
-  <data name="Cannot found Product with ID" xml:space="preserve">
-    <value>Cannot found Product with ID: {0}</value>
+  <data name="Create Category is failed" xml:space="preserve">
+    <value>Tạo Category thất bại</value>
   </data>
-  <data name="Create Product is failed" xml:space="preserve">
-    <value>Create Product is failed</value>
+  <data name="EndPostCategoryFail" xml:space="preserve">
+    <value>End PostCategory API - Failed</value>
   </data>
-  <data name="CreateProductFail" xml:space="preserve">
-    <value>Tạo Sản phẩm thất bại</value>
-  </data>
-  <data name="Delete attachment failed" xml:space="preserve">
-    <value>Xóa file đính kèm thất bại</value>
-  </data>
-  <data name="DescriptionVn cannot over limit 500 characters" xml:space="preserve">
-    <value>DescriptionVn không thể vượt quá 500 ký tự</value>
-  </data>
-  <data name="EndPostProductFail" xml:space="preserve">
-    <value>End PostProduct API - Failed</value>
-  </data>
-  <data name="EndPostProductSuccess" xml:space="preserve">
-    <value>End PostProduct API - Success</value>
+  <data name="EndPostCategorySuccess" xml:space="preserve">
+    <value>End PostCategory API - Success</value>
   </data>
   <data name="IdExisted" xml:space="preserve">
-    <value>Sản phẩm với ID {0} không tồn tại</value>
+    <value>Category with ID {0} is existed.</value>
   </data>
-  <data name="ImageUrl cannot over limit 1000 characters" xml:space="preserve">
-    <value>ImageUrl không thể vượt quá 1000 kí tự</value>
-  </data>
-  <data name="NameVn cannot over limit 255 characters" xml:space="preserve">
-    <value>NameVn không thể vượt quá 255 kí tự</value>
-  </data>
-  <data name="OriginalPrice cannot be null" xml:space="preserve">
-    <value>OriginalPrice không thể null</value>
-  </data>
-  <data name="Price cannot be null" xml:space="preserve">
-    <value>Price không thể null</value>
-  </data>
-  <data name="SeoAliasVn cannot over limit 255 characters" xml:space="preserve">
-    <value>SeoAliasVn không thể vượt quá 255 kí tự</value>
-  </data>
-  <data name="SeoDescriptionVn cannot over limit 255 characters" xml:space="preserve">
-    <value>SeoDescriptionVn không thể vượt quá 255 kí tự</value>
-  </data>
-  <data name="SeoKeywordsVn cannot over limit 255 characters" xml:space="preserve">
-    <value>SeoKeywordsVn không thể vượt quá 255 kí tự</value>
-  </data>
-  <data name="SeoPageTitleVn cannot over limit 255 characters" xml:space="preserve">
-    <value>SeoPageTitleVn không thể vượt quá 255 kí tự</value>
-  </data>
-  <data name="ThumbImage cannot over limit 1000 characters" xml:space="preserve">
-    <value>ThumbImage không thể vượt quá 1000 kí tự</value>
+  <data name="String cannot over limit number characters" xml:space="preserve">
+    <value>{0} không thể vượt quá {1} kí tự</value>
   </data>
 </root>

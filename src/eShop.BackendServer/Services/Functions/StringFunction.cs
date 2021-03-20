@@ -12,5 +12,10 @@ namespace eShop.BackendServer.Services.Functions
         {
             return string.Format(replaceString, text);
         }
+
+        public string ReturnString(string replaceString, string text1, string text2)
+        {
+            return string.Format(replaceString, text1, text2);
+        }
     }
 }

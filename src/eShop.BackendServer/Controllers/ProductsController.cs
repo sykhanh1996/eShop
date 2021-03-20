@@ -12,6 +12,7 @@ using eShop.BackendServer.Authorization;
 using eShop.BackendServer.Constants;
 using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
+using eShop.BackendServer.Data.Enums;
 using eShop.BackendServer.Helpers;
 using eShop.BackendServer.Models.ViewModels;
 using eShop.BackendServer.Models.ViewModels.Contents;
@@ -136,11 +137,11 @@ namespace eShop.BackendServer.Controllers
         [HttpPut("{id}")]
         //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.UPDATE)]
         [ApiValidationFilter]
-        public async Task<IActionResult> PutFunction(string id, [FromBody] ProductCreateRequest request)
+        public async Task<IActionResult> PutProduct(int id, [FromBody] ProductCreateRequest request)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null)
-                return NotFound(new ApiNotFoundResponse(_returnString.ReturnString(_localizer["Cannot found Product with ID"], id)));
+                return NotFound(new ApiNotFoundResponse(_returnString.ReturnString(_localizer["Cannot found Product with ID"], id.ToString())));
             var productUpdate = _mapper.Map(request, product);
           
             _context.Products.Update(productUpdate);
@@ -151,6 +152,23 @@ namespace eShop.BackendServer.Controllers
                 return NoContent();
             }
             return BadRequest(new ApiBadRequestResponse(_localizer["Create Product is failed"]));
+        }
+        [HttpPut("{id}/delete")]
+        //[ClaimRequirement(FunctionCode.CONTENT_KNOWLEDGEBASE, CommandCode.DELETE)]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+                return NotFound();
+            product.Status = Status.InActive;
+            _context.Products.Update(product);
+            var result = await _context.SaveChangesAsync();
+            if (result > 0)
+            {
+                var productVm = _mapper.Map<ProductVm>(product);
+                return Ok(productVm);
+            }
+            return BadRequest();
         }
         #region Attachment
         [HttpGet("{productId}/attachments")]
@@ -172,21 +190,7 @@ namespace eShop.BackendServer.Controllers
 
             return Ok(query);
         }
-        [HttpDelete("{id}")]
-        //[ClaimRequirement(FunctionCode.CONTENT_KNOWLEDGEBASE, CommandCode.DELETE)]
-        public async Task<IActionResult> DeleteProduct(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-                return NotFound();
 
-            _context.Products.Remove(product);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
-                return Ok(product);
-            
-            return BadRequest();
-        }
         [HttpDelete("{productId}/attachments/{attachmentId}")]
         public async Task<IActionResult> DeleteAttachment(int attachmentId)
         {
