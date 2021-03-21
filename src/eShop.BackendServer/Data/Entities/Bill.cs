@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace eShop.BackendServer.Data.Entities
 {
     [Table("Bills")]
-    public class Bill : ISortable, ISwitchable, IHasSeoMetaData, IDateTracking
+    public class Bill : ISortable, ISwitchable,  IDateTracking
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,20 +20,6 @@ namespace eShop.BackendServer.Data.Entities
         public int? ParentId { get; set; }
         public int SortOrder { get; set; }
         public Status Status { get; set; }
-
-        [MaxLength(255)]
-        public string SeoPageTitle { get; set; }
-
-        [MaxLength(255)]
-        [Column(TypeName = "varchar(255)")]
-        public string SeoAlias { get; set; }
-
-        [MaxLength(255)]
-        public string SeoKeywords { get; set; }
-
-        [MaxLength(255)]
-        public string SeoDescription { get; set; }
-
         public DateTime CreateDate { get; set; }
         public DateTime? LastModifiedDate { get; set; }
 
