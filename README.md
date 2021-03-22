@@ -5,3 +5,4 @@
 - NPM (https://nodejs.org/en/)
 - GIT
 - Angular CLI(npm install -g @angular/cli)
+- Visual Studio Code
