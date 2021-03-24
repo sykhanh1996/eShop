@@ -50,7 +50,7 @@ const routes: Routes = [
       },
       {
         path: 'systems',
-        loadChildren: () => import('./protected-zone/pages/general/general.module').then(m => m.GeneralModule)
+        loadChildren: () => import('./protected-zone/pages/systems/systems.module').then(m => m.SystemsModule)
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }

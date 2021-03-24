@@ -2,7 +2,10 @@ using eShop.BackendServer.Data;
 using eShop.BackendServer.Data.Entities;
 using eShop.BackendServer.Extensions;
 using eShop.BackendServer.IdentityServer;
+using eShop.BackendServer.Models.ViewModels.Systems;
 using eShop.BackendServer.Services;
+using eShop.BackendServer.Services.Functions;
+using eShop.BackendServer.Services.Interfaces;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,11 +23,6 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using AutoMapper;
-using eShop.BackendServer.AutoMapper;
-using eShop.BackendServer.Models.ViewModels.Systems;
-using eShop.BackendServer.Services.Functions;
-using eShop.BackendServer.Services.Interfaces;
 
 namespace eShop.BackendServer
 {
@@ -56,7 +54,7 @@ namespace eShop.BackendServer
                     options.Events.RaiseSuccessEvents = true;
                 })
                 .AddInMemoryApiResources(Config.Apis)
-                .AddInMemoryClients(Config.Clients)
+                .AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))
                 .AddInMemoryIdentityResources(Config.Ids)
                 .AddAspNetIdentity<User>()
                 .AddProfileService<IdentityProfileService>()
