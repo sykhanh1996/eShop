@@ -9,3 +9,4 @@
 
 # Install angular
 - npm install oidc-client@1.9.1 --save => thu vien tich hop identity cho client
+- npm install ngx-spinner --save

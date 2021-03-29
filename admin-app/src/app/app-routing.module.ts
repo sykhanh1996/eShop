@@ -1,79 +1,29 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { BaseComponent } from './protected-zone/layout/base/base.component';
-import { AuthGuard } from './core/guard/auth.guard';
-import { ErrorPageComponent } from './protected-zone/pages/error-page/error-page.component';
-
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './shared';
 
 const routes: Routes = [
-  { path:'auth', loadChildren: () => import('./protected-zone/pages/auth/auth.module').then(m => m.AuthModule) },
-  {
-    path: '',
-    component: BaseComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'dashboard',
-        loadChildren: () => import('./protected-zone/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
-      },
-      {
-        path: 'ui-components',
-        loadChildren: () => import('./protected-zone/pages/ui-components/ui-components.module').then(m => m.UiComponentsModule)
-      },
-      {
-        path: 'advanced-ui',
-        loadChildren: () => import('./protected-zone/pages/advanced-ui/advanced-ui.module').then(m => m.AdvancedUiModule)
-      },
-      {
-        path: 'form-elements',
-        loadChildren: () => import('./protected-zone/pages/form-elements/form-elements.module').then(m => m.FormElementsModule)
-      },
-      {
-        path: 'advanced-form-elements',
-        loadChildren: () => import('./protected-zone/pages/advanced-form-elements/advanced-form-elements.module').then(m => m.AdvancedFormElementsModule)
-      },
-      {
-        path: 'charts-graphs',
-        loadChildren: () => import('./protected-zone/pages/charts-graphs/charts-graphs.module').then(m => m.ChartsGraphsModule)
-      },
-      {
-        path: 'tables',
-        loadChildren: () => import('./protected-zone/pages/tables/tables.module').then(m => m.TablesModule)
-      },
-      {
-        path: 'icons',
-        loadChildren: () => import('./protected-zone/pages/icons/icons.module').then(m => m.IconsModule)
-      },
-      {
-        path: 'general',
-        loadChildren: () => import('./protected-zone/pages/general/general.module').then(m => m.GeneralModule)
-      },
-      {
-        path: 'systems',
-        loadChildren: () => import('./protected-zone/pages/systems/systems.module').then(m => m.SystemsModule)
-      },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
-      // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
-    ]
-  },
-  { 
-    path: 'error',
-    component: ErrorPageComponent,
-    data: {
-      'type': 404,
-      'title': 'Page Not Found',
-      'desc': 'Oopps!! The page you were looking for doesn\'t exist.'
-    }
-  },
-  {
-    path: 'error/:type',
-    component: ErrorPageComponent
-  },
-  { path: '**', redirectTo: 'error', pathMatch: 'full' }
+    {
+        path: '',
+        loadChildren: () => import('./layout/layout.module').then((m) => m.LayoutModule),
+        canActivate: [AuthGuard]
+    },
+    { path: 'login', loadChildren: () => import('./login/login.module').then((m) => m.LoginModule) },
+    { path: 'signup', loadChildren: () => import('./signup/signup.module').then((m) => m.SignupModule) },
+    {
+        path: 'error',
+        loadChildren: () => import('./server-error/server-error.module').then((m) => m.ServerErrorModule)
+    },
+    {
+        path: 'access-denied',
+        loadChildren: () => import('./access-denied/access-denied.module').then((m) => m.AccessDeniedModule)
+    },
+    { path: 'not-found', loadChildren: () => import('./not-found/not-found.module').then((m) => m.NotFoundModule) },
+    { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

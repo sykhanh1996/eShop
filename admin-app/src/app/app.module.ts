@@ -1,44 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
-
-import { LayoutModule } from './protected-zone/layout/layout.module';
-import { AuthGuard } from './core/guard/auth.guard';
-
 import { AppComponent } from './app.component';
-import { ErrorPageComponent } from './protected-zone/pages/error-page/error-page.component';
-
-import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-
+import { AuthGuard } from './shared';
+import { LanguageTranslationModule } from './shared/modules/language-translation/language-translation.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorPageComponent
-   
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-  ],
-  providers: [
-    AuthGuard,
-    {
-      provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        languages: {
-          xml: () => import('highlight.js/lib/languages/xml'),
-          typescript: () => import('highlight.js/lib/languages/typescript'),
-          scss: () => import('highlight.js/lib/languages/scss'),
-        }
-      }
-    }
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        LanguageTranslationModule,
+        AppRoutingModule
+    ],
+    declarations: [AppComponent],
+    providers: [AuthGuard],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
