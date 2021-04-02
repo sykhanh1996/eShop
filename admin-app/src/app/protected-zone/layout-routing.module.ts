@@ -9,12 +9,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
             { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
-
-            { path: 'systems', loadChildren: () => import('./systems/systems.module').then(m => m.SystemsModule) },
-            
-            { path: 'test', loadChildren: () => import('./test/test.module').then(m => m.TestModule) }
-        
-
+            { path: 'systems', loadChildren: () => import('./systems/systems.module').then(m => m.SystemsModule) }
         ]
     }
 ];
