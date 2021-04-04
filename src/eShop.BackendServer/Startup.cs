@@ -28,6 +28,8 @@ namespace eShop.BackendServer
 {
     public class Startup
     {
+
+        private readonly string ESSpecificOrigins = "ESSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -59,6 +61,17 @@ namespace eShop.BackendServer
                 .AddAspNetIdentity<User>()
                 .AddProfileService<IdentityProfileService>()
                 .AddDeveloperSigningCredential();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(ESSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins(Configuration["AllowOrigins"])
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -201,7 +214,7 @@ namespace eShop.BackendServer
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors(ESSpecificOrigins);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
