@@ -103,10 +103,10 @@ namespace eShop.BackendServer.Data
 
                     new Function {Id = "SYSTEM", ParentId = null,NameTemp = "Hệ thống", Url = "/systems"},
 
-                    new Function {Id = "SYSTEM_USER", ParentId = "SYSTEM",NameTemp = "Người dùng", Url = "/system/users"},
-                    new Function {Id = "SYSTEM_ROLE", ParentId = "SYSTEM",NameTemp = "Nhóm Quyền", Url = "/system/roles"},
-                    new Function {Id = "SYSTEM_FUNCTION",ParentId = "SYSTEM",NameTemp = "Chức năng", Url = "/system/functions"},
-                    new Function {Id = "SYSTEM_PERMISSION",ParentId = "SYSTEM",NameTemp = "Quyền hạn", Url = "/system/permissions"}
+                    new Function {Id = "SYSTEM_USER", ParentId = "SYSTEM",NameTemp = "Người dùng", Url = "/systems/users"},
+                    new Function {Id = "SYSTEM_ROLE", ParentId = "SYSTEM",NameTemp = "Nhóm Quyền", Url = "/systems/roles"},
+                    new Function {Id = "SYSTEM_FUNCTION",ParentId = "SYSTEM",NameTemp = "Chức năng", Url = "/systems/functions"},
+                    new Function {Id = "SYSTEM_PERMISSION",ParentId = "SYSTEM",NameTemp = "Quyền hạn", Url = "/systems/permissions"}
                 });
                 await _context.SaveChangesAsync();
             }
