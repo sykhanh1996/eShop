@@ -10,6 +10,7 @@ import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockUIModule} from 'primeng/blockui';
+import {InputTextModule} from 'primeng/inputtext';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { RolesDetailComponent } from './roles/roles-detail/roles-detail.component';
 import { NotificationService } from '@app/shared/services';
@@ -28,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PaginatorModule,
     BlockUIModule,
     FormsModule,
+    InputTextModule,
     ReactiveFormsModule,
     ProgressSpinnerModule,
     ValidationMessageModule,

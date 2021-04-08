@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Pagination, Role } from '@app/shared/models';
 import { NotificationService, RolesService } from '@app/shared/services';
-import { MessageConstants } from '../constants';
+import { MessageConstants } from '../../../shared/constants';
 import { RolesDetailComponent } from './roles-detail/roles-detail.component';
 
 

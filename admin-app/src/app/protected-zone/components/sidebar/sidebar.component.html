@@ -9,9 +9,9 @@
                 <i class="fa fa-plus"></i>&nbsp;
                 <span>{{ item.nameTemp }}</span>
             </a>
-            <li [class.expand]="showMenu === item.id" class="nested" *ngFor="let subItem of item.children">
+            <li [class.expand]="showMenu === item.id" class="nested" >
                 <ul class="submenu">
-                    <li>
+                    <li *ngFor="let subItem of item.children">
                         <a href="javascript:void(0)" [routerLink]="[subItem.url]" [routerLinkActive]="['router-link-active']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ subItem.nameTemp }}</span>
