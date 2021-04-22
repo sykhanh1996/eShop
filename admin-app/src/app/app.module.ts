@@ -1,21 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
-
 import { LayoutModule } from './protected-zone/layout/layout.module';
 import { AuthGuard } from './core/guard/auth.guard';
-
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './protected-zone/pages/error-page/error-page.component';
-
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorPageComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
