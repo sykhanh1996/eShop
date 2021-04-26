@@ -38,6 +38,7 @@ const routes: Routes = [
       'desc': 'Oopps!! The page you were looking for doesn\'t exist.'
     }
   },
+  { path:'auth-callback', loadChildren: () => import('./auth-callback/auth-callback.module').then(m => m.AuthCallbackModule) },
   {
     path: 'error/:type',
     component: ErrorPageComponent
